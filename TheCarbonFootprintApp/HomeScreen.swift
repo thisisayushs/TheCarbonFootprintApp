@@ -26,9 +26,12 @@ struct HomeScreen: View {
         ZStack {
             BackroundView()
             
-            SceneKitView()
-                .frame(width: 500, height: 500)
-                .padding()
+            VStack {
+                
+                SceneKitView()
+                    .frame(width: 400, height: 400)
+                    
+            }
         }
     }
 }

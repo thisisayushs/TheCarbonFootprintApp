@@ -26,53 +26,73 @@ struct HomeScreen: View {
     @State private var currentPage = 0
     
     var body: some View {
-        ZStack {
-            BackroundView()
-                .ignoresSafeArea()
-            
-            TabView(selection: $currentPage) {
+        NavigationStack {
+            ZStack {
+                BackroundView()
+                    .ignoresSafeArea()
                 
-                // First page (existing content)
-                VStack {
-                    Text("32.7")
-                        .font(.system(size: 80, weight: .bold))
-                        .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.green, .white.opacity(0.8)]), startPoint: .leading, endPoint: .trailing))
-                        .fontDesign(.rounded)
+                TabView(selection: $currentPage) {
+                
+                    // First page (existing content)
+                    VStack {
+                        Text("32.7")
+                            .font(.system(size: 80, weight: .bold))
+                            .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.green, .white.opacity(0.8)]), startPoint: .leading, endPoint: .trailing))
+                            .fontDesign(.rounded)
+                            .padding()
+                           
+                          
                        
-                      
-                   
-                    
-                    
-                    SceneKitView()
-                        .frame(width: 400, height: 400)
-                        .padding(.bottom, 50)
-                    
-                   
-                    
-                    Button(action: {}) {
-                        OptionView(content: "Share your world", icon: "square.and.arrow.up")
-                    }.tint(.white)
-                        .padding(.bottom, 80)
+
+
+                        SceneKitView()
+                            .frame(width: 400, height: 400)
+                            .padding(.bottom, 80)
                         
-                }
-                .padding()
-                .tag(0)
-                
-                // Second page
-                ScrollView {
-                    VStack(spacing: 20) {
-                        CardView(title: "5.5 lbs CO₂/day", description: "Biking just twice a week could reduce your emissions, equivalent to planting 10 trees.", icon: "bicycle")
-                        
-                        CardView(title: "3.2 lbs CO₂/day", description: "Using public transport can significantly reduce your carbon footprint.", icon: "bus")
-                        
-                        CardView(title: "2.8 lbs CO₂/day", description: "Walking short distances instead of driving helps protect our environment.", icon: "figure.walk")
+                       
+
+
+                        Button(action: {}) {
+                            OptionView(content: "Share your world", icon: "square.and.arrow.up")
+                        }.tint(.white)
+                            .padding(.bottom, 80)
+                            
                     }
-                    .padding(.vertical)
+                    .padding()
+                    .tag(0)
+                    
+                    // Second page
+                    ScrollView {
+                        VStack(spacing: 20) {
+                            CardView(title: "5.5 lbs CO₂/day", description: "Biking just twice a week could reduce your emissions, equivalent to planting 10 trees.", icon: "bicycle")
+                            
+                            CardView(title: "3.2 lbs CO₂/day", description: "Using public transport can significantly reduce your carbon footprint.", icon: "bus")
+                            
+                            CardView(title: "2.8 lbs CO₂/day", description: "Walking short distances instead of driving helps protect our environment.", icon: "figure.walk")
+                        }
+                        .padding(.vertical)
+                    }
+                    .tag(1)
                 }
-                .tag(1)
+                .tabViewStyle(.page)
+                .indexViewStyle(.page(backgroundDisplayMode: .always))
             }
-            .tabViewStyle(.page)
-            .indexViewStyle(.page(backgroundDisplayMode: .always))
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        
+                    }) {
+                        Image("Memoji")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40, height: 40)
+                            .clipShape(Circle())
+                            
+                            
+                            
+                    }
+                }
+            }
         }
     }
 }

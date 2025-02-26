@@ -45,6 +45,7 @@ struct CardView: View {
                 .background(.white.opacity(0.05))
                 .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
                     .frame(width: 360, height: 150)
+                    .shadow(color: .black.opacity(0.2), radius: 5)
         }.padding()
     }
 }

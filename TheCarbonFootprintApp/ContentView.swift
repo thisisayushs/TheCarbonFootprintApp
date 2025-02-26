@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ContentView: View {
     // Add state to track current question
@@ -14,6 +15,9 @@ struct ContentView: View {
     let totalQuestions = 5
     // Add state to track if questionnaire is complete
     @State private var questionnaireComplete = false
+    
+    // Add haptic feedback generator
+    let hapticImpact = UIImpactFeedbackGenerator(style: .medium)
     
     var body: some View {
         ZStack {
@@ -57,17 +61,27 @@ struct ContentView: View {
         }
         // Add animation to the ZStack to animate between views
         .animation(.easeInOut(duration: 0.5), value: questionnaireComplete)
+        .onAppear {
+            // Prepare the haptic engine when view appears
+            hapticImpact.prepare()
+        }
     }
     
-    // Function to advance to the next question
+    // Function to advance to the next question with haptic feedback
     func goToNextQuestion() {
+        // Trigger haptic feedback
+        hapticImpact.impactOccurred()
+        
         withAnimation {
             currentQuestion += 1
         }
     }
     
-    // Function to complete the questionnaire and move to HomeScreen
+    // Function to complete the questionnaire and move to HomeScreen with haptic feedback
     func completeQuestionnaire() {
+        // Trigger haptic feedback
+        hapticImpact.impactOccurred()
+        
         withAnimation {
             questionnaireComplete = true
         }

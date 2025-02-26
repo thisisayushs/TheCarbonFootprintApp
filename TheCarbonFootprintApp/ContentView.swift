@@ -349,7 +349,7 @@ struct RecyclingQuestion: View {
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "Comprehensive recycling and composting")
+                    OptionView(content: "Comprehensive recycling")
                 }.padding()
                 
                 Button(action: {

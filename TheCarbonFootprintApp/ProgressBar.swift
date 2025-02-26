@@ -13,7 +13,7 @@ struct ProgressBar: View {
     var height: CGFloat = 20
     var percent: CGFloat = 50
     var color1: Color = Color(.green)
-    var color2: Color = Color(.white.opacity(0.6))
+    var color2: Color = Color(.white.opacity(0.8))
     
     
     var body: some View {

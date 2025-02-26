@@ -35,10 +35,10 @@ struct HomeScreen: View {
                 // First page (existing content)
                 VStack {
                     Text("32.7")
-                        .font(.system(size: 80))
+                        .font(.system(size: 80, weight: .bold))
                         .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.green, .white.opacity(0.8)]), startPoint: .leading, endPoint: .trailing))
                         .fontDesign(.rounded)
-                        .bold()
+                       
                       
                    
                     

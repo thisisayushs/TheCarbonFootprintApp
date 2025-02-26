@@ -12,48 +12,64 @@ struct ContentView: View {
     @State private var currentQuestion = 0
     // Total number of questions
     let totalQuestions = 5
+    // Add state to track if questionnaire is complete
+    @State private var questionnaireComplete = false
     
     var body: some View {
         ZStack {
             BackroundView()
             
-            VStack {
-                // Update ProgressBar to show actual progress
-                ProgressBar(percent: CGFloat((currentQuestion * 100) / totalQuestions))
-                
-                Spacer()
-                
-                // Show the appropriate question based on currentQuestion state
-                if currentQuestion == 0 {
-                    TransportationQuestion(goToNextQuestion: goToNextQuestion)
-                } else if currentQuestion == 1 {
-                    DietQuestion(goToNextQuestion: goToNextQuestion)
-                } else if currentQuestion == 2 {
-                    EnergyQuestion(goToNextQuestion: goToNextQuestion)
-                } else if currentQuestion == 3 {
-                    ShoppingQuestion(goToNextQuestion: goToNextQuestion)
-                } else if currentQuestion == 4 {
-                    RecyclingQuestion(goToNextQuestion: goToNextQuestion)
-                } else {
-                    // Results screen could go here
-                    Text("Thank you for completing the questionnaire!")
-                        .foregroundStyle(.white)
-                        .font(.title)
-                        .fontDesign(.rounded)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
+            // Show HomeScreen if questionnaire is complete, otherwise show the questionnaire
+            if questionnaireComplete {
+                HomeScreen()
+                    .transition(.asymmetric(
+                        insertion: .move(edge: .trailing).combined(with: .opacity),
+                        removal: .move(edge: .leading).combined(with: .opacity)
+                    ))
+            } else {
+                VStack {
+                    // Update ProgressBar to show actual progress
+                    ProgressBar(percent: CGFloat((currentQuestion * 100) / totalQuestions))
+                    
+                    Spacer()
+                    
+                    // Show the appropriate question based on currentQuestion state
+                    if currentQuestion == 0 {
+                        TransportationQuestion(goToNextQuestion: goToNextQuestion)
+                    } else if currentQuestion == 1 {
+                        DietQuestion(goToNextQuestion: goToNextQuestion)
+                    } else if currentQuestion == 2 {
+                        EnergyQuestion(goToNextQuestion: goToNextQuestion)
+                    } else if currentQuestion == 3 {
+                        ShoppingQuestion(goToNextQuestion: goToNextQuestion)
+                    } else if currentQuestion == 4 {
+                        RecyclingQuestion(goToNextQuestion: completeQuestionnaire)
+                    }
+                    
+                    Spacer()
                 }
-                
-                Spacer()
+                .padding()
+                .transition(.asymmetric(
+                    insertion: .move(edge: .leading).combined(with: .opacity),
+                    removal: .move(edge: .trailing).combined(with: .opacity)
+                ))
             }
-            .padding()
         }
+        // Add animation to the ZStack to animate between views
+        .animation(.easeInOut(duration: 0.5), value: questionnaireComplete)
     }
     
     // Function to advance to the next question
     func goToNextQuestion() {
         withAnimation {
             currentQuestion += 1
+        }
+    }
+    
+    // Function to complete the questionnaire and move to HomeScreen
+    func completeQuestionnaire() {
+        withAnimation {
+            questionnaireComplete = true
         }
     }
 }

@@ -11,7 +11,7 @@ import SceneKit
 struct SceneKitView: UIViewRepresentable {
     func makeUIView(context: Context) -> SCNView {
         let sceneView = SCNView()
-        sceneView.scene = SCNScene(named: "Earth.usdz")
+        sceneView.scene = SCNScene(named: "earth2.usdc")
         sceneView.allowsCameraControl = true
         sceneView.autoenablesDefaultLighting = true
         sceneView.backgroundColor = .clear
@@ -35,11 +35,16 @@ struct HomeScreen: View {
                 
                     // First page (existing content)
                     VStack {
+                        Text("Your carbon footprint score")
+                            .padding(.top)
+                            .foregroundStyle(.white)
+                            .bold()
+                            .font(.system(size: 20, design: .rounded))
+
                         Text("32.7")
                             .font(.system(size: 80, weight: .bold))
                             .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.green, .white.opacity(0.8)]), startPoint: .leading, endPoint: .trailing))
                             .fontDesign(.rounded)
-                            .padding()
                            
                           
                        
@@ -48,6 +53,7 @@ struct HomeScreen: View {
                         SceneKitView()
                             .frame(width: 400, height: 400)
                             .padding(.bottom, 80)
+                            .scaleEffect(1.3)
                         
                        
 
@@ -77,22 +83,7 @@ struct HomeScreen: View {
                 .tabViewStyle(.page)
                 .indexViewStyle(.page(backgroundDisplayMode: .always))
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        
-                    }) {
-                        Image("Memoji")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40)
-                            .clipShape(Circle())
-                            
-                            
-                            
-                    }
-                }
-            }
+            
         }
     }
 }

@@ -152,7 +152,7 @@ struct HomeScreen: View {
                             .frame(width: 40, height: 40)
                             .clipShape(Circle())
                     }
-                    .padding(20)
+                    .padding()
                 }
             }
             .fullScreenCover(isPresented: $showProfile) {

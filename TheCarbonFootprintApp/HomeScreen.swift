@@ -68,7 +68,7 @@ struct HomeScreen: View {
                             OptionView(content: "Share your world", icon: "square.and.arrow.up")
                         }.tint(.white)
                             
-                            .padding(.bottom, 80)
+                            .padding(.bottom, 85)
                             
                         Spacer()
                     }

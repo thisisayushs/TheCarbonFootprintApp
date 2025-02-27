@@ -11,14 +11,63 @@ import SceneKit
 struct SceneKitView: UIViewRepresentable {
     func makeUIView(context: Context) -> SCNView {
         let sceneView = SCNView()
-        sceneView.scene = SCNScene(named: "earth2.usdc")
-        sceneView.allowsCameraControl = true
+        guard let scene = SCNScene(named: "earth2.usdc") else { return sceneView }
+        sceneView.scene = scene
+        sceneView.allowsCameraControl = false  // Disable zoom
         sceneView.autoenablesDefaultLighting = true
         sceneView.backgroundColor = .clear
+
+        if let modelNode = scene.rootNode.childNodes.first {
+            modelNode.position = SCNVector3(0, -4.5, 0)
+            rotateNode(modelNode) // Auto-rotation
+            context.coordinator.modelNode = modelNode
+        }
+
+        // Add gesture recognizer for manual rotation
+        let panGesture = UIPanGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handlePan(_:)))
+        sceneView.addGestureRecognizer(panGesture)
+
         return sceneView
     }
-    
+
     func updateUIView(_ uiView: SCNView, context: Context) {}
+
+    func makeCoordinator() -> Coordinator {
+        return Coordinator()
+    }
+
+    // Function for automatic rotation
+    private func rotateNode(_ node: SCNNode) {
+        let rotation = SCNAction.rotateBy(x: 0, y: 0, z: 1, duration: 5)
+        let repeatRotation = SCNAction.repeatForever(rotation)
+        node.runAction(repeatRotation)
+    }
+
+    // Coordinator for gesture handling
+    class Coordinator: NSObject {
+        var modelNode: SCNNode?
+        private var lastPanLocation: CGPoint?
+
+        @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
+            guard let node = modelNode else { return }
+
+            let translation = gesture.translation(in: gesture.view)
+            
+            let angleX = Float(translation.y) * 0.005
+            let angleY = Float(translation.x) * 0.005
+            
+            // Creazione delle rotazioni su X e Y
+            let xRotation = simd_quatf(angle: angleX, axis: SIMD3<Float>(1, 0, 0))
+            let yRotation = simd_quatf(angle: angleY, axis: SIMD3<Float>(0, 1, 0))
+            
+            // Combiniamo le due rotazioni con la rotazione esistente
+            let newRotation = simd_mul(node.simdOrientation, simd_mul(yRotation, xRotation))
+            node.simdOrientation = newRotation
+
+            gesture.setTranslation(.zero, in: gesture.view) // Reset del valore per la prossima iterazione
+        }
+
+    }
 }
 
 struct HomeScreen: View {
@@ -35,19 +84,21 @@ struct HomeScreen: View {
                 TabView(selection: $currentPage) {
                 
                     // First page (existing content)
-                    VStack(spacing: 20) {
+                    VStack(spacing: 20){
                         Spacer()
                         
-                        Text("Your carbon footprint score")
-                            .padding(.top)
-                            .foregroundStyle(.white)
-                            .bold()
-                            .font(.system(size: 20, design: .rounded))
+                        VStack{
+                            Text("Your carbon footprint score")
+                                .padding(.top)
+                                .foregroundStyle(.white)
+                                .bold()
+                                .font(.system(size: 20, design: .rounded))
 
-                        Text("32.7")
-                            .font(.system(size: 80, weight: .bold))
-                            .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.green, .white.opacity(0.8)]), startPoint: .leading, endPoint: .trailing))
-                            .fontDesign(.rounded)
+                            Text("32.7")
+                                .font(.system(size: 80, weight: .bold))
+                                .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.green, .white.opacity(0.8)]), startPoint: .leading, endPoint: .trailing))
+                                .fontDesign(.rounded)
+                        }
                            
                           
                        
@@ -56,8 +107,7 @@ struct HomeScreen: View {
                         Spacer()
 
                         SceneKitView()
-                            .frame(width: 400, height: 400)
-                            .scaleEffect(1.3)
+                            .frame(width: 350, height: 350)
                         
                        
 
@@ -70,7 +120,6 @@ struct HomeScreen: View {
                             
                             .padding(.bottom, 85)
                             
-                        Spacer()
                     }
                     .padding()
                     .tag(0)
@@ -103,6 +152,7 @@ struct HomeScreen: View {
                             .frame(width: 40, height: 40)
                             .clipShape(Circle())
                     }
+                    .padding(20)
                 }
             }
             .fullScreenCover(isPresented: $showProfile) {

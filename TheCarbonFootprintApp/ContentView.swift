@@ -110,11 +110,12 @@ struct TransportationQuestion: View {
                     .font(.body)
                     .padding(.top, 5)
                     
-            }.multilineTextAlignment(.center)
+            }.multilineTextAlignment(.center)                .padding()
+
             
             Spacer()
           
-            VStack(spacing: 25) {
+            VStack(spacing: 5) {
                 Button(action: {
                     goToNextQuestion()
                 }) {
@@ -166,11 +167,12 @@ struct DietQuestion: View {
                     .font(.body)
                     .padding(.top, 5)
                     
-            }.multilineTextAlignment(.center)
+            }.multilineTextAlignment(.center)                .padding()
+
             
             Spacer()
           
-            VStack(spacing: 25) {
+            VStack(spacing: 5) {
                 Button(action: {
                     goToNextQuestion()
                 }) {
@@ -223,10 +225,12 @@ struct EnergyQuestion: View {
                     .padding(.top, 5)
                     
             }.multilineTextAlignment(.center)
+                .padding()
+
             
             Spacer()
           
-            VStack(spacing: 25) {
+            VStack(spacing: 5) {
                 Button(action: {
                     goToNextQuestion()
                 }) {
@@ -279,10 +283,11 @@ struct ShoppingQuestion: View {
                     .padding(.top, 5)
                     
             }.multilineTextAlignment(.center)
+                .padding()
             
             Spacer()
           
-            VStack(spacing: 25) {
+            VStack(spacing: 5) {
                 Button(action: {
                     goToNextQuestion()
                 }) {
@@ -334,11 +339,12 @@ struct RecyclingQuestion: View {
                     .font(.body)
                     .padding(.top, 5)
                     
-            }.multilineTextAlignment(.center)
+            }.multilineTextAlignment(.center)                .padding()
+
             
             Spacer()
           
-            VStack(spacing: 25) {
+            VStack(spacing: 5) {
                 Button(action: {
                     goToNextQuestion()
                 }) {

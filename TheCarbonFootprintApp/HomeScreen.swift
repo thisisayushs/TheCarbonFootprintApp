@@ -24,6 +24,7 @@ struct SceneKitView: UIViewRepresentable {
 struct HomeScreen: View {
     // Add state for current page
     @State private var currentPage = 0
+    @State private var showProfile = false // Add state for profile sheet
     
     var body: some View {
         NavigationStack {
@@ -34,7 +35,9 @@ struct HomeScreen: View {
                 TabView(selection: $currentPage) {
                 
                     // First page (existing content)
-                    VStack {
+                    VStack(spacing: 20) {
+                        Spacer()
+                        
                         Text("Your carbon footprint score")
                             .padding(.top)
                             .foregroundStyle(.white)
@@ -50,19 +53,24 @@ struct HomeScreen: View {
                        
 
 
+                        Spacer()
+
                         SceneKitView()
                             .frame(width: 400, height: 400)
-                            .padding(.bottom, 80)
                             .scaleEffect(1.3)
                         
                        
 
 
+                        Spacer()
+
                         Button(action: {}) {
                             OptionView(content: "Share your world", icon: "square.and.arrow.up")
                         }.tint(.white)
+                            
                             .padding(.bottom, 80)
                             
+                        Spacer()
                     }
                     .padding()
                     .tag(0)
@@ -83,7 +91,23 @@ struct HomeScreen: View {
                 .tabViewStyle(.page)
                 .indexViewStyle(.page(backgroundDisplayMode: .always))
             }
-            
+         
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(action: {
+                        showProfile = true
+                    }) {
+                        Image("Memoji")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40, height: 40)
+                            .clipShape(Circle())
+                    }
+                }
+            }
+            .fullScreenCover(isPresented: $showProfile) {
+                ProfileView()
+            }
         }
     }
 }

@@ -8,13 +8,24 @@
 import SwiftUI
 
 struct BackroundView: View {
+    
+    var opacity: Double = 0.0
+    
+    
     var body: some View {
         Image("Background")
             .resizable()
             .scaledToFit()
+            .overlay {
+                Color.black.opacity(opacity)
+                   
+            }
             .ignoresSafeArea()
             .blur(radius: 20)
             .scaleEffect(2.0)
+           
+            
+            
     }
 }
 

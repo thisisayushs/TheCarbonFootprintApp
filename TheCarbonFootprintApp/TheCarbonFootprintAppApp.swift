@@ -11,7 +11,7 @@ import SwiftUI
 struct TheCarbonFootprintAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SecondContentView()
                 .preferredColorScheme(.dark)
         }
     }

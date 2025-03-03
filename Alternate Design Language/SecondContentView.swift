@@ -1,14 +1,13 @@
 //
-//  ContentView.swift
+//  SecondHomeScreen.swift
 //  TheCarbonFootprintApp
 //
-//  Created by Ayush Kumar Singh on 25/02/25.
+//  Created by Ayush Kumar Singh on 02/03/25.
 //
 
-/*import SwiftUI
-import UIKit
+import SwiftUI
 
-struct ContentView: View {
+struct SecondContentView: View {
     // Add state to track current question
     @State private var currentQuestion = 0
     // Total number of questions
@@ -21,11 +20,11 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            BackroundView()
+            Color.cyan.ignoresSafeArea()
             
             // Show HomeScreen if questionnaire is complete, otherwise show the questionnaire
             if questionnaireComplete {
-                HomeScreen()
+                SecondHomeScreen()
                     .transition(.asymmetric(
                         insertion: .move(edge: .trailing).combined(with: .opacity),
                         removal: .move(edge: .leading).combined(with: .opacity)
@@ -33,7 +32,7 @@ struct ContentView: View {
             } else {
                 VStack {
                     // Update ProgressBar to show actual progress
-                    ProgressBar(percent: CGFloat((currentQuestion * 100) / totalQuestions))
+                    SecondProgressBar(percent: CGFloat((currentQuestion * 100) / totalQuestions))
                     
                     Spacer()
                     
@@ -108,7 +107,9 @@ struct TransportationQuestion: View {
                     .italic()
                     .foregroundStyle(.white)
                     .font(.body)
+                    
                     .padding(.top, 5)
+                
                     
             }.multilineTextAlignment(.center)                .padding()
 
@@ -119,26 +120,26 @@ struct TransportationQuestion: View {
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                   OptionView(content: "I love walking")
+                   SecondOptionView(content: "I love walking")
                 }
                 .padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "Public transport is my go to")
+                    SecondOptionView(content: "Public transport is my go to")
                 }.padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "I drive myself all the time")
+                    SecondOptionView(content: "I drive myself all the time")
                 }.padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "I usually share ride with others")
+                    SecondOptionView(content: "I usually share ride with others")
                 }.padding()
             }.tint(.white)
         }
@@ -176,26 +177,26 @@ struct DietQuestion: View {
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                   OptionView(content: "Plant-based/Vegan")
+                   SecondOptionView(content: "Plant-based/Vegan")
                 }
                 .padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "Vegetarian")
+                    SecondOptionView(content: "Vegetarian")
                 }.padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "Flexitarian (occasional meat)")
+                    SecondOptionView(content: "Flexitarian (occasional meat)")
                 }.padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "Regular meat consumption")
+                    SecondOptionView(content: "Regular meat consumption")
                 }.padding()
             }.tint(.white)
         }
@@ -234,26 +235,26 @@ struct EnergyQuestion: View {
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                   OptionView(content: "Highly efficient (renewable energy)")
+                   SecondOptionView(content: "Highly efficient (renewable energy)")
                 }
                 .padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "Moderately efficient")
+                    SecondOptionView(content: "Moderately efficient")
                 }.padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "Standard efficiency")
+                    SecondOptionView(content: "Standard efficiency")
                 }.padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "Not very efficient")
+                    SecondOptionView(content: "Not very efficient")
                 }.padding()
             }.tint(.white)
         }
@@ -291,26 +292,26 @@ struct ShoppingQuestion: View {
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                   OptionView(content: "Minimal, only essentials")
+                   SecondOptionView(content: "Minimal, only essentials")
                 }
                 .padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "Moderate, secondhand when possible")
+                    SecondOptionView(content: "Moderate, secondhand when possible")
                 }.padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "Regular shopping, some new items")
+                    SecondOptionView(content: "Regular shopping, some new items")
                 }.padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "Frequent new purchases")
+                    SecondOptionView(content: "Frequent new purchases")
                 }.padding()
             }.tint(.white)
         }
@@ -348,26 +349,26 @@ struct RecyclingQuestion: View {
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                   OptionView(content: "Zero-waste lifestyle")
+                   SecondOptionView(content: "Zero-waste lifestyle")
                 }
                 .padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "Comprehensive recycling")
+                    SecondOptionView(content: "Comprehensive recycling")
                 }.padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "Basic recycling")
+                    SecondOptionView(content: "Basic recycling")
                 }.padding()
                 
                 Button(action: {
                     goToNextQuestion()
                 }) {
-                    OptionView(content: "Minimal recycling effort")
+                    SecondOptionView(content: "Minimal recycling effort")
                 }.padding()
             }.tint(.white)
         }
@@ -375,6 +376,5 @@ struct RecyclingQuestion: View {
 }
 
 #Preview {
-    ContentView()
+    SecondContentView()
 }
-*/

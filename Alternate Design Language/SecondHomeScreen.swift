@@ -1,14 +1,17 @@
 //
-//  HomeScreen.swift
+//  SecondHomeScreen.swift
 //  TheCarbonFootprintApp
 //
-//  Created by Ayush Kumar Singh on 25/02/25.
+//  Created by Ayush Kumar Singh on 02/03/25.
 //
 
-/*import SwiftUI
+
+
+import SwiftUI
 import SceneKit
 
 struct SceneKitView: UIViewRepresentable {
+    @Environment(\.colorScheme) var colorScheme
     func makeUIView(context: Context) -> SCNView {
         let sceneView = SCNView()
         guard let scene = SCNScene(named: "earth2.usdc") else { return sceneView }
@@ -70,16 +73,20 @@ struct SceneKitView: UIViewRepresentable {
     }
 }
 
-struct HomeScreen: View {
+struct SecondHomeScreen: View {
     // Add state for current page
     @State private var currentPage = 0
     @State private var showProfile = false // Add state for profile sheet
+    @Environment(\.colorScheme) var colorScheme // Add this line for dark mode detection
     
     var body: some View {
         NavigationStack {
             ZStack {
-                BackroundView()
-                    .ignoresSafeArea()
+                if colorScheme == .dark {
+                    DarkSecondBackground()
+                } else {
+                    SecondBackgroundView()
+                }
                 
                 TabView(selection: $currentPage) {
                 
@@ -95,9 +102,11 @@ struct HomeScreen: View {
                                 .font(.system(size: 20, design: .rounded))
 
                             Text("32.7")
-                                .font(.system(size: 80, weight: .bold))
-                                .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.green, .white.opacity(0.8)]), startPoint: .leading, endPoint: .trailing))
+                                .font(.system(size: 85, weight: .bold))
+                                .foregroundStyle(.white)
+                                .shadow(radius: 5)
                                 .fontDesign(.rounded)
+                               
                         }
                            
                           
@@ -107,7 +116,9 @@ struct HomeScreen: View {
                         Spacer()
 
                         SceneKitView()
+                            .shadow(radius: 5)
                             .frame(width: 350, height: 350)
+                           
                         
                        
 
@@ -115,7 +126,7 @@ struct HomeScreen: View {
                         Spacer()
 
                         Button(action: {}) {
-                            OptionView(content: "Share your world", icon: "square.and.arrow.up")
+                            SecondOptionView(content: "Share your world", icon: "square.and.arrow.up")
                         }.tint(.white)
                             
                             .padding(.bottom, 85)
@@ -144,25 +155,25 @@ struct HomeScreen: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
-                        showProfile = true
+                        showProfile = false
                     }) {
                         Image("Memoji")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 40, height: 40)
                             .clipShape(Circle())
+                            .shadow(radius: 5)
                     }
                     .padding()
                 }
             }
             .fullScreenCover(isPresented: $showProfile) {
-                ProfileView()
+                EmptyView()
             }
         }
     }
 }
 
 #Preview {
-    HomeScreen()
+    SecondHomeScreen()
 }
-*/

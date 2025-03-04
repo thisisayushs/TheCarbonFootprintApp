@@ -5,7 +5,7 @@
 //  Created by Ayush Kumar Singh on 02/03/25.
 //
 
-import SwiftUI
+/*import SwiftUI
 
 struct SecondContentView: View {
     // Add state to track current question
@@ -378,3 +378,4 @@ struct RecyclingQuestion: View {
 #Preview {
     SecondContentView()
 }
+*/

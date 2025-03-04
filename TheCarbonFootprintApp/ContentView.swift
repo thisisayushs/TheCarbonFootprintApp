@@ -5,7 +5,7 @@
 //  Created by Ayush Kumar Singh on 25/02/25.
 //
 
-/*import SwiftUI
+import SwiftUI
 import UIKit
 
 struct ContentView: View {
@@ -377,4 +377,4 @@ struct RecyclingQuestion: View {
 #Preview {
     ContentView()
 }
-*/
+

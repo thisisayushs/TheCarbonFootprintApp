@@ -5,73 +5,12 @@
 //  Created by Ayush Kumar Singh on 25/02/25.
 //
 
-/*import SwiftUI
+import SwiftUI
 import SceneKit
 
-struct SceneKitView: UIViewRepresentable {
-    func makeUIView(context: Context) -> SCNView {
-        let sceneView = SCNView()
-        guard let scene = SCNScene(named: "earth2.usdc") else { return sceneView }
-        sceneView.scene = scene
-        sceneView.allowsCameraControl = false  // Disable zoom
-        sceneView.autoenablesDefaultLighting = true
-        sceneView.backgroundColor = .clear
 
-        if let modelNode = scene.rootNode.childNodes.first {
-            modelNode.position = SCNVector3(0, -4.5, 0)
-            rotateNode(modelNode) // Auto-rotation
-            context.coordinator.modelNode = modelNode
-        }
-
-        // Add gesture recognizer for manual rotation
-        let panGesture = UIPanGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handlePan(_:)))
-        sceneView.addGestureRecognizer(panGesture)
-
-        return sceneView
-    }
-
-    func updateUIView(_ uiView: SCNView, context: Context) {}
-
-    func makeCoordinator() -> Coordinator {
-        return Coordinator()
-    }
-
-    // Function for automatic rotation
-    private func rotateNode(_ node: SCNNode) {
-        let rotation = SCNAction.rotateBy(x: 0, y: 0, z: 1, duration: 5)
-        let repeatRotation = SCNAction.repeatForever(rotation)
-        node.runAction(repeatRotation)
-    }
-
-    // Coordinator for gesture handling
-    class Coordinator: NSObject {
-        var modelNode: SCNNode?
-        private var lastPanLocation: CGPoint?
-
-        @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
-            guard let node = modelNode else { return }
-
-            let translation = gesture.translation(in: gesture.view)
-            
-            let angleX = Float(translation.y) * 0.005
-            let angleY = Float(translation.x) * 0.005
-            
-            // Creazione delle rotazioni su X e Y
-            let xRotation = simd_quatf(angle: angleX, axis: SIMD3<Float>(1, 0, 0))
-            let yRotation = simd_quatf(angle: angleY, axis: SIMD3<Float>(0, 1, 0))
-            
-            // Combiniamo le due rotazioni con la rotazione esistente
-            let newRotation = simd_mul(node.simdOrientation, simd_mul(yRotation, xRotation))
-            node.simdOrientation = newRotation
-
-            gesture.setTranslation(.zero, in: gesture.view) // Reset del valore per la prossima iterazione
-        }
-
-    }
-}
 
 struct HomeScreen: View {
-    // Add state for current page
     @State private var currentPage = 0
     @State private var showProfile = false // Add state for profile sheet
     
@@ -83,7 +22,6 @@ struct HomeScreen: View {
                 
                 TabView(selection: $currentPage) {
                 
-                    // First page (existing content)
                     VStack(spacing: 20){
                         Spacer()
                         
@@ -124,7 +62,6 @@ struct HomeScreen: View {
                     .padding()
                     .tag(0)
                     
-                    // Second page
                     ScrollView {
                         VStack(spacing: 20) {
                             CardView(title: "5.5 lbs CO₂/day", description: "Biking just twice a week could reduce your emissions, equivalent to planting 10 trees.", icon: "bicycle")
@@ -165,4 +102,4 @@ struct HomeScreen: View {
 #Preview {
     HomeScreen()
 }
-*/
+

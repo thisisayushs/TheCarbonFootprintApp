@@ -177,3 +177,8 @@ struct SecondHomeScreen: View {
 #Preview {
     SecondHomeScreen()
 }
+
+#Preview{
+    HomeScreen()
+
+}

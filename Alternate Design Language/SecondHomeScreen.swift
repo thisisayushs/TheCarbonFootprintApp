@@ -73,12 +73,15 @@ struct SceneKitView: UIViewRepresentable {
     }
 }
 
+
 struct SecondHomeScreen: View {
-    // Add state for current page
     @State private var currentPage = 0
-    @State private var showProfile = false // Add state for profile sheet
-    @Environment(\.colorScheme) var colorScheme // Add this line for dark mode detection
-    
+    @State private var showProfile = false
+    @Environment(\.colorScheme) var colorScheme
+    @State private var shareImage: UIImage?
+    @State private var isSharing = false
+    @State private var isCapturing = false // Track screenshot state
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -87,61 +90,48 @@ struct SecondHomeScreen: View {
                 } else {
                     SecondBackgroundView()
                 }
-                
+
                 TabView(selection: $currentPage) {
-                
-                    // First page (existing content)
-                    VStack(spacing: 20){
+                    // First page
+                    VStack(spacing: 20) {
                         Spacer()
-                        
-                        VStack{
+                        VStack {
                             Text("Your carbon footprint score")
                                 .padding(.top)
                                 .foregroundStyle(.white)
                                 .bold()
                                 .font(.system(size: 20, design: .rounded))
-
                             Text("32.7")
                                 .font(.system(size: 85, weight: .bold))
                                 .foregroundStyle(.white)
                                 .shadow(radius: 5)
                                 .fontDesign(.rounded)
-                               
                         }
-                           
-                          
-                       
-
 
                         Spacer()
-
                         SceneKitView()
                             .shadow(radius: 5)
                             .frame(width: 350, height: 350)
-                           
-                        
-                       
-
-
                         Spacer()
 
-                        Button(action: {}) {
-                            SecondOptionView(content: "Share your world", icon: "square.and.arrow.up")
-                        }.tint(.white)
-                            
+                        if !isCapturing { // Hide share button when capturing
+                            Button(action: {
+                                captureAndShare()
+                            }) {
+                                SecondOptionView(content: "Share your world", icon: "square.and.arrow.up")
+                            }
+                            .tint(.white)
                             .padding(.bottom, 85)
-                            
+                        }
                     }
                     .padding()
                     .tag(0)
-                    
+
                     // Second page
                     ScrollView {
                         VStack(spacing: 20) {
                             CardView(title: "5.5 lbs CO₂/day", description: "Biking just twice a week could reduce your emissions, equivalent to planting 10 trees.", icon: "bicycle")
-                            
                             CardView(title: "3.2 lbs CO₂/day", description: "Using public transport can significantly reduce your carbon footprint.", icon: "bus")
-                            
                             CardView(title: "2.8 lbs CO₂/day", description: "Walking short distances instead of driving helps protect our environment.", icon: "figure.walk")
                         }
                         .padding(.vertical)
@@ -149,36 +139,70 @@ struct SecondHomeScreen: View {
                     .tag(1)
                 }
                 .tabViewStyle(.page)
-                .indexViewStyle(.page(backgroundDisplayMode: .always))
+                .indexViewStyle(isCapturing ? .page : .page(backgroundDisplayMode: .always)) // Hide indicators when capturing
             }
-         
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        showProfile = false
-                    }) {
-                        Image("Memoji")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40)
-                            .clipShape(Circle())
-                            .shadow(radius: 5)
+                if !isCapturing { // Hide toolbar when capturing
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(action: {
+                            showProfile = false
+                        }) {
+                            Image("Memoji")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .clipShape(Circle())
+                                .shadow(radius: 5)
+                        }
+                        .padding()
                     }
-                    .padding()
                 }
             }
             .fullScreenCover(isPresented: $showProfile) {
                 EmptyView()
             }
         }
+        .sheet(isPresented: $isSharing) {
+            if let image = shareImage {
+                ShareSheet(activityItems: [image])
+            }
+        }
+    }
+
+    // Function to capture the screen as an image
+    private func captureAndShare() {
+        isCapturing = true // Hide UI elements before capture
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { // Small delay to update UI
+            let controller = UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first { $0.isKeyWindow }
+
+            let renderer = UIGraphicsImageRenderer(size: controller?.bounds.size ?? .zero)
+            let image = renderer.image { context in
+                controller?.drawHierarchy(in: controller?.bounds ?? .zero, afterScreenUpdates: true)
+            }
+
+            self.shareImage = image
+            self.isCapturing = false // Restore UI after capture
+            self.isSharing = true
+        }
     }
 }
 
-#Preview {
-    SecondHomeScreen()
+// UIKit wrapper for Share Sheet
+struct ShareSheet: UIViewControllerRepresentable {
+    var activityItems: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
-#Preview{
-    HomeScreen()
 
+#Preview {
+    SecondHomeScreen()
 }

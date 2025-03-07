@@ -28,6 +28,8 @@ struct ProfileView: View {
                             .scaledToFit()
                             .frame(width: 80, height: 80)
                             .clipShape(Circle())
+                            .accessibilityLabel(Text("Profile"))
+
                     }
                    
                     HStack(spacing: 55) {

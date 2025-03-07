@@ -49,6 +49,7 @@ struct CarouselCardView: View {
                             
                             VStack(spacing: 30) {
                                 Text(page.question)
+                                    .accessibilityLabel(Text(page.question))
                                     .font(.system(size: 22, weight: .bold))
                                     .foregroundColor(.white.opacity(0.9))
                                     .multilineTextAlignment(.center)
@@ -68,6 +69,8 @@ struct CarouselCardView: View {
                                             }
                                         }) {
                                             Text(answer)
+                                                .accessibilityLabel(Text(answer))
+
                                                 .font(.system(size: 16))
                                                 .foregroundColor(selectedAnswer == answer ? .yellow : .white.opacity(0.8))
                                                 .frame(maxWidth: .infinity)

@@ -9,10 +9,17 @@ import SwiftUI
 
 @main
 struct TheCarbonFootprintAppApp: App {
+    
+    @AppStorage("isAnswered") var isAnswered: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            HomeScreen()
-                .preferredColorScheme(.dark)
+            if isAnswered{
+                HomeScreen()
+                    .preferredColorScheme(.dark)
+            }else{
+                CarouselView()
+            }
         }
     }
 }

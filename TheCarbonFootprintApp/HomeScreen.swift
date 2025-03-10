@@ -79,7 +79,7 @@ struct HomeScreen: View {
     @State private var isCapturing = false // Track screenshot state
     @State private var shareImage: UIImage?
     @State private var isSharing = false
-    let textToShare = "Hello, world!"
+    @AppStorage("carbonFootprintScore") var carbonFootprintScore: Double = 0.0
 
     var body: some View {
         NavigationStack {
@@ -89,21 +89,29 @@ struct HomeScreen: View {
 
                 TabView(selection: $currentPage) {
                     VStack(spacing: 20) {
-                        Spacer()
 
                         VStack {
-                            Text("Your carbon footprint score")
-                                .padding(.top)
+                            Text("You are wasting")
                                 .foregroundStyle(.white)
                                 .bold()
                                 .font(.system(size: 20, design: .rounded))
+                                .padding(.top)
 
-                            Text("32.7")
+                            Text(String(format: "%.2f", carbonFootprintScore))
                                 .font(.system(size: 80, weight: .bold))
                                 .foregroundStyle(
                                     LinearGradient(gradient: Gradient(colors: [.green, .white.opacity(0.8)]), startPoint: .leading, endPoint: .trailing)
                                 )
                                 .fontDesign(.rounded)
+                                
+                            
+                            Text("kg CO₂/month")
+                                .foregroundStyle(.white)
+                                .bold()
+                                .font(.system(size: 14, design: .rounded))
+                            
+                           
+
                         }
 
                         Spacer()

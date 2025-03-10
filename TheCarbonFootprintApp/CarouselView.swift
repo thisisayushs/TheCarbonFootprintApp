@@ -4,7 +4,7 @@ struct Page: Identifiable {
     let id = UUID()
     let number: Int
     let question: String
-    let answers: [String]
+    let answers: [(String, Double)]
 }
 
 struct CarouselCardView: View {
@@ -13,7 +13,6 @@ struct CarouselCardView: View {
     let onAnswerSelected: (String) -> Void
     
     @State private var selectedAnswer: String? = nil
-    @State private var showSelectedAnswer: Bool = false
     
     var body: some View {
         ZStack {
@@ -24,166 +23,159 @@ struct CarouselCardView: View {
     
     private func cardView(_ page: Page) -> some View {
         ZStack {
-            Rectangle()
-                .fill(.clear)
-                .background(
-                    Rectangle()
-                        .fill(Material.ultraThinMaterial)
-                        .opacity(0.3)
-                        .cornerRadius(30)
-                        .clipped()
-                )
+            RoundedRectangle(cornerRadius: 30)
+                .fill(Material.ultraThinMaterial)
+                .opacity(0.3)
+                .frame(width: 300, height: 400)
                 .overlay(
                     RoundedRectangle(cornerRadius: 30)
-                        .strokeBorder(
-                            Color.white.opacity(0.2),
-                            lineWidth: 0.5
-                        )
+                        .stroke(Color.white.opacity(0.2), lineWidth: 0.5)
                         .blur(radius: 0.3)
                 )
-                .frame(width: 300, height: 350)
                 .overlay(
-                    GeometryReader { geometry in
-                        VStack {
-                            Spacer()
-                            
-                            VStack(spacing: 30) {
-                                Text(page.question)
-                                    .accessibilityLabel(Text(page.question))
-                                    .font(.system(size: 22, weight: .bold))
-                                    .foregroundColor(.white.opacity(0.9))
-                                    .multilineTextAlignment(.center)
-                                    .padding(.horizontal, 20)
-                                    .padding(.top, 30)
-                                
-                                VStack(spacing: 15) {
-                                    ForEach(page.answers, id: \.self) { answer in
-                                        Button(action: {
-                                            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
-                                                selectedAnswer = answer
-                                                showSelectedAnswer = true
-                                            }
-                                            
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                                                onAnswerSelected(answer)
-                                            }
-                                        }) {
-                                            Text(answer)
-                                                .accessibilityLabel(Text(answer))
-
-                                                .font(.system(size: 16))
-                                                .foregroundColor(selectedAnswer == answer ? .yellow : .white.opacity(0.8))
-                                                .frame(maxWidth: .infinity)
-                                                .padding(.vertical, 12)
-                                                .background(
-                                                    RoundedRectangle(cornerRadius: 12)
-                                                        .fill(Material.ultraThinMaterial)
-                                                        .opacity(0.2)
-                                                )
-                                                .overlay(
-                                                    RoundedRectangle(cornerRadius: 12)
-                                                        .strokeBorder(Color.white.opacity(0.3), lineWidth: 0.5)
-                                                )
-                                                .scaleEffect(selectedAnswer == answer ? 1.1 : 1.0)
-                                                .padding(.horizontal, 20)
-                                        }
-                                        .disabled(selectedAnswer != nil)
+                    VStack(spacing: 30) {
+                        Text(page.question)
+                            .font(.system(size: 22, weight: .bold))
+                            .foregroundColor(.white.opacity(0.9))
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 20)
+                            .padding(.top, 30)
+                        
+                        VStack(spacing: 15) {
+                            ForEach(page.answers, id: \.0) { answer, _ in
+                                Button(action: {
+                                    withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                                        selectedAnswer = answer
                                     }
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                        onAnswerSelected(answer)
+                                    }
+                                }) {
+                                    Text(answer)
+                                        .font(.system(size: 16))
+                                        .foregroundColor(selectedAnswer == answer ? .yellow : .white.opacity(0.8))
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 12)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .fill(Material.ultraThinMaterial)
+                                                .opacity(0.2)
+                                        )
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .stroke(Color.white.opacity(0.3), lineWidth: 0.5)
+                                        )
+                                        .scaleEffect(selectedAnswer == answer ? 1.1 : 1.0)
+                                        .padding(.horizontal, 20)
                                 }
-                                .padding(.bottom, 30)
-                                
-                                Spacer()
+                                .disabled(selectedAnswer != nil)
                             }
                         }
+                        .padding(.bottom, 30)
                     }
                 )
-                .clipShape(RoundedRectangle(cornerRadius: 30))
-                .background(
-                    Rectangle()
-                        .fill(.ultraThinMaterial)
-                        .blur(radius: 3)
-                        .opacity(0.2)
-                        .cornerRadius(30)
-                )
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 30))
-    }
-}
-
-struct FloatingLeaf: View {
-    @State private var isAnimating = false
-    let randomOffset: CGFloat
-    let randomSize: CGFloat
-    let duration: Double
-    
-    var body: some View {
-        Image(systemName: "leaf.fill")
-            .foregroundColor(.green.opacity(0.2))
-            .font(.system(size: randomSize))
-            .rotationEffect(.degrees(isAnimating ? 360 : 0))
-            .offset(x: isAnimating ? randomOffset : -randomOffset,
-                    y: isAnimating ? 200 : -50)
-            .onAppear {
-                withAnimation(
-                    Animation
-                        .easeInOut(duration: duration)
-                        .repeatForever(autoreverses: false)
-                ) {
-                    isAnimating = true
-                }
-            }
-    }
-}
-
-struct LeafField: View {
-    var body: some View {
-        ZStack {
-            ForEach(0..<12) { index in
-                FloatingLeaf(
-                    randomOffset: CGFloat.random(in: -200...200),
-                    randomSize: CGFloat.random(in: 10...25),
-                    duration: Double.random(in: 8...15)
-                )
-                .offset(x: CGFloat.random(in: -150...150))
-            }
         }
     }
 }
 
 struct CarouselView: View {
-    
     @AppStorage("isAnswered") var isAnswered: Bool = false
+    @AppStorage("carbonFootprintScore") var carbonFootprintScore: Double = 0.0
+
 
     private let pages = [
-        Page(number: 1, question: "How do you usually commute?", answers: ["Drive", "Public Transport", "Bike"]),
-        Page(number: 2, question: "How often do you eat meat?", answers: ["Daily", "Occasionally", "Vegetarian"]),
-        Page(number: 3, question: "Energy use?", answers: ["Inefficiently", "Fairly", "Efficiently"]),
-        Page(number: 4, question: "How often do you travel by plane?", answers: ["Several times a year", "Once a year", "Less than once a year"]),
-        Page(number: 5, question: "How do you manage household waste?", answers: ["I waste without recycling", "I recycle most of my waste", "I compost and recycle"])
+        Page(number: 1, question: "How often do you use a car for transportation?", answers: [
+            ("Never", 0.0),
+            ("Occasionally", 50.0),
+            ("Regularly", 150.0),
+            ("Daily", 300.0)
+        ]),
+        
+        Page(number: 2, question: "What type of diet do you follow?", answers: [
+            ("Vegan", 10.0),
+            ("Vegetarian", 30.0),
+            ("Omnivore, but limited meat", 80.0),
+            ("High meat consumption", 200.0)
+        ]),
+        
+        Page(number: 3, question: "How do you typically heat your home?", answers: [
+            ("Renewable energy (solar, geothermal)", 10.0),
+            ("Electricity", 50.0),
+            ("Natural gas", 150.0),
+            ("Coal or oil", 300.0)
+        ]),
+        
+        Page(number: 4, question: "How often do you fly per year?", answers: [
+            ("Never", 0.0),
+            ("1-2 short flights", 42.0),
+            ("3-5 medium-haul flights", 125.0),
+            ("More than 5 long-haul flights", 417.0)
+        ]),
+        
+        Page(number: 5, question: "What type of home do you live in?", answers: [
+            ("Small apartment (<50m²)", 8.3),
+            ("Medium apartment or house (50-150m²)", 41.7),
+            ("Large house (>150m²)", 83.3),
+            ("Luxury home with high energy use", 166.7)
+        ]),
+        
+        Page(number: 6, question: "How much electricity do you consume monthly?", answers: [
+            ("Less than 100 kWh", 50.0),
+            ("100-300 kWh", 150.0),
+            ("300-600 kWh", 300.0),
+            ("More than 600 kWh", 600.0)
+        ]),
+        
+        Page(number: 7, question: "How do you dispose of waste?", answers: [
+            ("I recycle and compost everything possible", 10.0),
+            ("I recycle most items, but not all", 50.0),
+            ("I throw away most of my waste without recycling", 150.0),
+            ("I generate a lot of waste and do not recycle", 300.0)
+        ]),
+        
+        Page(number: 8, question: "How often do you buy new clothing or electronics?", answers: [
+            ("Rarely, only when necessary", 4.2),
+            ("Occasionally, a few items per year", 12.5),
+            ("Frequently, new items every few months", 41.7),
+            ("Regularly, I follow fashion trends and upgrade often", 83.3)
+        ]),
+        
+        Page(number: 9, question: "What type of energy sources power your home?", answers: [
+            ("100% renewable", 0.0),
+            ("Mostly renewable with some fossil fuels", 16.7),
+            ("Mixed fossil fuels and renewables", 41.7),
+            ("Mostly or entirely fossil fuels", 83.3)
+        ]),
+        
+        Page(number: 10, question: "How much water do you use daily?", answers: [
+            ("Very little (short showers, minimal waste)", 6.7),
+            ("Moderate usage", 20.0),
+            ("High usage (bath daily, excessive water use)", 50.0),
+            ("Excessive usage (pool, lawn irrigation, long showers)", 100.0)
+        ])
     ]
+
     
     @State private var currentIndex: Int = 0
     @State private var selectedAnswers: [Int: String] = [:]
     @State private var progressPercentage: Double = 0.0
+    @State private var score = 0.0
     
     var body: some View {
         ZStack {
             Color(red: 0, green: 0.12, blue: 0.08)
                 .edgesIgnoringSafeArea(.all)
             
-            LeafField()
-                .offset(y: 200)
-                .opacity(0.6)
-            
             VStack(spacing: 0) {
                 CarouselCircularProgressView(progress: progressPercentage)
                     .frame(width: 100, height: 100)
                     .padding(.top, 60)
+          
                 
                 Spacer()
                 
                 ZStack {
-                    ForEach(Array(zip(pages.indices, pages)), id: \ .0) { index, page in
+                    ForEach(Array(zip(pages.indices, pages)), id: \.0) { index, page in
                         CarouselCardView(
                             page: page,
                             currentIndex: currentIndex,
@@ -191,10 +183,19 @@ struct CarouselView: View {
                                 withAnimation {
                                     selectedAnswers[index] = answer
                                     progressPercentage = Double(index + 1) / Double(pages.count)
-                                    if progressPercentage == 1.0{
+                                    
+                                    // Find the corresponding score from the tuple
+                                    if let selectedValue = pages[index].answers.first(where: { $0.0 == answer })?.1 {
+                                        score += selectedValue
+                                    }
+                                    
+                                    if progressPercentage == 1.0 {
                                         isAnswered = true
+                                        carbonFootprintScore = score
+                                        print("Final Carbon Footprint Score: \(carbonFootprintScore) kg CO₂/month")
                                     }
                                 }
+                                
                                 if currentIndex < pages.count - 1 {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                                         withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
@@ -203,13 +204,71 @@ struct CarouselView: View {
                                     }
                                 }
                             }
+
                         )
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
-                .padding(.bottom, 50)
+                Spacer()
             }
+        }
+    }
+}
+
+struct CarouselEffect: ViewModifier {
+    let index: Int
+    let currentIndex: Int
+    let translation: CGFloat
+    
+    func body(content: Content) -> some View {
+        content
+            .rotation3DEffect(
+                .degrees(Double(index - currentIndex) * 20),
+                axis: (x: 0, y: 1, z: 0),
+                perspective: 0.5
+            )
+            .offset(x: CGFloat(index - currentIndex) * 300 + translation)
+            .opacity(index == currentIndex ? 1 : 0.5)
+            .scaleEffect(index == currentIndex ? 1 : 0.8)
+            .zIndex(index == currentIndex ? 1 : 0)
+            .animation(.spring(response: 0.5, dampingFraction: 0.8), value: currentIndex)
+    }
+}
+
+struct CarouselCircularProgressView: View {
+    let progress: Double
+    @State private var phase = 0.0
+    
+    var body: some View {
+        ZStack {
+            Circle()
+                .stroke(lineWidth: 8)
+                .opacity(0.3)
+                .foregroundColor(.white)
+            
+            GeometryReader { geometry in
+                ZStack {
+                    WaveShape(progress: progress, waveHeight: 5, phase: phase)
+                        .fill(Color.blue.opacity(0.8))
+                    
+                    WaveShape(progress: progress, waveHeight: 5, phase: phase + .pi)
+                        .fill(Color.blue.opacity(0.6))
+                }
+            }
+            .clipShape(Circle())
+            .onAppear {
+                withAnimation(
+                    .linear(duration: 2)
+                    .repeatForever(autoreverses: false)
+                ) {
+                    phase += .pi * 2
+                }
+            }
+            
+            Text("\(Int(progress * 100))%")
+                .font(.system(size: 18, weight: .bold))
+                .foregroundColor(.white)
         }
     }
 }
@@ -243,72 +302,6 @@ struct WaveShape: Shape {
     }
 }
 
-struct CarouselCircularProgressView: View {
-    let progress: Double
-    @State private var phase = 0.0
-    
-    var body: some View {
-        ZStack {
-            Circle()
-                .stroke(lineWidth: 8)
-                .opacity(0.3)
-                .foregroundColor(.white)
-            
-            GeometryReader { geometry in
-                ZStack {
-                    WaveShape(progress: progress, waveHeight: 5, phase: phase)
-                        .fill(Color(red: 0.2, green: 0.6, blue: 0.9).opacity(0.8))
-                    
-                    WaveShape(progress: progress, waveHeight: 5, phase: phase + .pi)
-                        .fill(Color(red: 0.1, green: 0.4, blue: 0.8).opacity(0.6))
-                }
-            }
-            .clipShape(Circle())
-            .onAppear {
-                withAnimation(
-                    .linear(duration: 2)
-                    .repeatForever(autoreverses: false)
-                ) {
-                    phase += .pi * 2
-                }
-            }
-            
-            Circle()
-                .fill(
-                    LinearGradient(
-                        colors: [.white.opacity(0.2), .clear],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-            
-            Text("\(Int(progress * 100))%")
-                .font(.system(size: 18, weight: .bold))
-                .foregroundColor(.white)
-        }
-    }
-}
-
-struct CarouselEffect: ViewModifier {
-    let index: Int
-    let currentIndex: Int
-    let translation: CGFloat
-    
-    func body(content: Content) -> some View {
-        content
-            .rotation3DEffect(
-                .degrees(Double(index - currentIndex) * 20),
-                axis: (x: 0, y: 1, z: 0),
-                perspective: 0.5
-            )
-            .offset(x: CGFloat(index - currentIndex) * 300 + translation)
-            .opacity(index == currentIndex ? 1 : 0.5)
-            .scaleEffect(index == currentIndex ? 1 : 0.8)
-            .zIndex(index == currentIndex ? 1 : 0)
-            .animation(.spring(response: 0.5, dampingFraction: 0.8), value: currentIndex)
-    }
-}
-
-#Preview{
+#Preview {
     CarouselView()
 }

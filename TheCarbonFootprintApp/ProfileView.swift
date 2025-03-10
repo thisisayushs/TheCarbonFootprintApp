@@ -9,7 +9,9 @@ import SwiftUI
 
 struct ProfileView: View {
     @Environment(\.dismiss) private var dismiss
-    
+    @AppStorage("carbonFootprintScore") var carbonFootprintScore: Double = 0.0
+    @AppStorage("isAnswered") var isAnswered: Bool = false
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -32,15 +34,22 @@ struct ProfileView: View {
 
                     }
                    
-                    HStack(spacing: 55) {
-                        DataCard()
-                        DataCard()
-                    }
+//                    HStack(spacing: 55) {
+//                        DataCard()
+//                        
+//                    }
                     
                     VStack(spacing: 15) {
+                        Button {
+                            carbonFootprintScore = 0.0
+                            isAnswered = false
+                        } label: {
+                            ProfileListItem(icon: "chart.dots.scatter", text: "Retake questionnaire")
+                        }
+
                         ProfileListItem(icon: "person", text: "Account Settings")
                         ProfileListItem(icon: "leaf", text: "My Impact Goals")
-                        ProfileListItem(icon: "chart.dots.scatter", text: "Progress History")
+                        
                         ProfileListItem(icon: "bell", text: "Notifications")
                         ProfileListItem(icon: "gear", text: "Settings")
                     }

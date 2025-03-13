@@ -11,7 +11,8 @@ struct ProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @AppStorage("carbonFootprintScore") var carbonFootprintScore: Double = 0.0
     @AppStorage("isAnswered") var isAnswered: Bool = false
-
+    @State private var showingAlert = false
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -41,10 +42,19 @@ struct ProfileView: View {
                     
                     VStack(spacing: 15) {
                         Button {
-                            carbonFootprintScore = 0.0
-                            isAnswered = false
+                            showingAlert = true
                         } label: {
                             ProfileListItem(icon: "chart.dots.scatter", text: "Retake questionnaire")
+                        }
+                        .alert("Reset Questionnaire", isPresented: $showingAlert) {
+                            Button("Cancel", role: .cancel) { }
+                            Button("Retake", role: .destructive) {
+                                carbonFootprintScore = 0.0
+                                isAnswered = false
+                                dismiss()
+                            }
+                        } message: {
+                            Text("This will clear your previous answers and carbon footprint score. Do you want to continue?")
                         }
 
                         ProfileListItem(icon: "person", text: "Account Settings")

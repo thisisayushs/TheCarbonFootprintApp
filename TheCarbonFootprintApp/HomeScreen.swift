@@ -11,17 +11,28 @@ import SceneKit
 
 
 struct SceneKitView: UIViewRepresentable {
+    
     @Environment(\.colorScheme) var colorScheme
+    @AppStorage("carbonFootprintScore") var carbonFootprintScore: Double = 2000
+
     func makeUIView(context: Context) -> SCNView {
         let sceneView = SCNView()
-        guard let scene = SCNScene(named: "earth2.usdc") else { return sceneView }
+        guard let scene = SCNScene(named: getEarthModelName()) else { return sceneView }
         sceneView.scene = scene
         sceneView.allowsCameraControl = false  // Disable zoom
         sceneView.autoenablesDefaultLighting = true
         sceneView.backgroundColor = .clear
 
         if let modelNode = scene.rootNode.childNodes.first {
-            modelNode.position = SCNVector3(0, -4.5, 0)
+            
+            if carbonFootprintScore <= 916.2 {
+                modelNode.position = SCNVector3(0, -4.5, 0)
+            } else if carbonFootprintScore <= 1733.3 {
+                modelNode.position = SCNVector3(0, -1.7, 0)
+            } else {
+                modelNode.position = SCNVector3(0, -3.5, 0)
+            }
+            
             rotateNode(modelNode) // Auto-rotation
             context.coordinator.modelNode = modelNode
         }
@@ -32,6 +43,16 @@ struct SceneKitView: UIViewRepresentable {
 
         return sceneView
     }
+    
+    private func getEarthModelName() -> String {
+            if carbonFootprintScore <= 916.2 {
+                return "earth_Green.usdc"
+            } else if carbonFootprintScore <= 1733.3 {
+                return "earth_Yellow.usdc"
+            } else {
+                return "earth_Red.usdc"
+            }
+        }
 
     func updateUIView(_ uiView: SCNView, context: Context) {}
 
@@ -100,7 +121,7 @@ struct HomeScreen: View {
                             Text(String(format: "%.2f", carbonFootprintScore))
                                 .font(.system(size: 80, weight: .bold))
                                 .foregroundStyle(
-                                    LinearGradient(gradient: Gradient(colors: [.green, .white.opacity(0.8)]), startPoint: .leading, endPoint: .trailing)
+                                    LinearGradient(gradient: Gradient(colors: [getScoreColor(), .white.opacity(0.8)]), startPoint: .leading, endPoint: .trailing)
                                 )
                                 .fontDesign(.rounded)
                                 
@@ -109,9 +130,6 @@ struct HomeScreen: View {
                                 .foregroundStyle(.white)
                                 .bold()
                                 .font(.system(size: 14, design: .rounded))
-                            
-                           
-
                         }
 
                         Spacer()
@@ -138,17 +156,11 @@ struct HomeScreen: View {
                     .padding()
                     .tag(0)
 
-                    ScrollView {
-                        VStack(spacing: 20) {
-                            CardView(title: "5.5 lbs CO₂/day", description: "Biking just twice a week could reduce your emissions, equivalent to planting 10 trees.", icon: "bicycle")
-
-                            CardView(title: "3.2 lbs CO₂/day", description: "Using public transport can significantly reduce your carbon footprint.", icon: "bus")
-
-                            CardView(title: "2.8 lbs CO₂/day", description: "Walking short distances instead of driving helps protect our environment.", icon: "figure.walk")
-                        }
-                        .padding(.vertical)
-                    }
-                    .tag(1)
+                  
+                    
+                    // Third tab - Dashboard
+                    DashboardView()
+                        .tag(1)
                 }
                 .tabViewStyle(.page)
                 .indexViewStyle(isCapturing ? .page : .page(backgroundDisplayMode: .always)) // Hide indicators when capturing
@@ -160,13 +172,17 @@ struct HomeScreen: View {
                         Button(action: {
                             showProfile = true
                         }) {
-                            Image("Memoji")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40, height: 40)
-                                .clipShape(Circle())
+                            Image(systemName: "gear")
+                                .font(.headline)
+                                .foregroundStyle(.white)
+                                .padding(10)
+                                .background {
+                                    TransparentBlurView(removeAllFilters: true)
+                                        .blur(radius: 5, opaque: true)
+                                        .background(.white.opacity(0.1))
+                                        .clipShape(Circle())
+                                }
                         }
-                        .padding()
                     }
                 }
             }
@@ -180,7 +196,7 @@ struct HomeScreen: View {
             }
         }
     }
-
+    
     // Function to capture the screen as an image
     private func captureAndShare() {
         isCapturing = true // Hide UI elements before capture
@@ -199,6 +215,17 @@ struct HomeScreen: View {
             self.shareImage = image
             self.isCapturing = false // Restore UI after capture
             self.isSharing = true
+        }
+    }
+    
+    // Funzione per determinare il colore in base al punteggio
+    private func getScoreColor() -> Color {
+        if carbonFootprintScore <= 916.2 {
+            return .green
+        } else if carbonFootprintScore <= 1733.3 {
+            return .yellow
+        } else {
+            return .red
         }
     }
 }

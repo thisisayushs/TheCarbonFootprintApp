@@ -2,6 +2,14 @@
 //  DashboardView.swift
 //  TheCarbonFootprintApp
 //
+//  Created by Francesco Paciello on 13/03/25.
+//
+
+
+//
+//  DashboardView.swift
+//  TheCarbonFootprintApp
+//
 //  Created by Trae AI on 06/03/25.
 //
 
@@ -66,7 +74,7 @@ struct DashboardView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
                 }
                 .padding(.horizontal)
-                .padding(.bottom, 30)
+                .padding(.bottom, 70)
             }
         }
         

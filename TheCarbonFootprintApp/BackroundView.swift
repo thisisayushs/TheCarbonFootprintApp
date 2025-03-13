@@ -10,23 +10,35 @@ import SwiftUI
 struct BackroundView: View {
     
     var opacity: Double = 0.0
-    
+    @AppStorage("carbonFootprintScore") var carbonFootprintScore: Double = 0.0
+
     
     var body: some View {
-        Image("Background")
-            .resizable()
-            .scaledToFit()
-            .overlay {
-                Color.black.opacity(opacity)
-                   
-            }
-            .ignoresSafeArea()
-            .blur(radius: 20)
-            .scaleEffect(2.0)
+        RadialGradient(
+                           gradient: Gradient(colors: [
+                               getGradientColor().opacity(0.3),
+                               getGradientColor().opacity(0.6),
+                               
+                           ]),
+                           center: .center,
+                           startRadius: 0,
+                           endRadius: 1000
+                       )
+                       .ignoresSafeArea()
            
             
             
     }
+    
+    private func getGradientColor() -> Color {
+            if carbonFootprintScore <= 916.2 {
+                return .green
+            } else if carbonFootprintScore <= 1733.3 {
+                return .yellow
+            } else {
+                return .red
+            }
+        }
 }
 
 #Preview {

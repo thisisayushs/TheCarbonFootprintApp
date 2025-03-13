@@ -22,23 +22,6 @@ struct ProfileView: View {
                 VStack(spacing: 30) {
             
                     
-                    ZStack {
-                        CircularProgressView(progress: 0.8)
-                            .frame(width: 100, height: 100)
-                        
-                        Image("Memoji")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 80, height: 80)
-                            .clipShape(Circle())
-                            .accessibilityLabel(Text("Profile"))
-
-                    }
-                   
-//                    HStack(spacing: 55) {
-//                        DataCard()
-//                        
-//                    }
                     
                     VStack(spacing: 15) {
                         Button {

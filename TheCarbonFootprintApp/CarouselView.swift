@@ -1,10 +1,44 @@
 import SwiftUI
 
+// Add category to Page struct
 struct Page: Identifiable {
     let id = UUID()
     let number: Int
     let question: String
     let answers: [(String, Double)]
+    let category: QuestionCategory
+}
+
+// Define question categories
+enum QuestionCategory: String, CaseIterable {
+    case transportation = "Transportation"
+    case food = "Food"
+    case housing = "Housing"
+    case energy = "Energy"
+    case lifestyle = "Lifestyle"
+    case water = "Water"
+    
+    var icon: String {
+        switch self {
+        case .transportation: return "car.fill"
+        case .food: return "fork.knife"
+        case .housing: return "house.fill"
+        case .energy: return "bolt.fill"
+        case .lifestyle: return "bag.fill"
+        case .water: return "drop.fill"
+        }
+    }
+    
+    var color: Color {
+        switch self {
+        case .transportation: return .blue
+        case .food: return .green
+        case .housing: return .orange
+        case .energy: return .yellow
+        case .lifestyle: return .purple
+        case .water: return .cyan
+        }
+    }
 }
 
 struct CarouselCardView: View {
@@ -19,6 +53,8 @@ struct CarouselCardView: View {
             cardView(page)
         }
         .modifier(CarouselEffect(index: page.number - 1, currentIndex: currentIndex, translation: 0))
+        // Disabilita l'interazione per le carte che non sono quella corrente
+        .allowsHitTesting(page.number - 1 == currentIndex)
     }
     
     private func cardView(_ page: Page) -> some View {
@@ -81,7 +117,14 @@ struct CarouselCardView: View {
 struct CarouselView: View {
     @AppStorage("isAnswered") var isAnswered: Bool = false
     @AppStorage("carbonFootprintScore") var carbonFootprintScore: Double = 0.0
-
+    
+    // Add category scores
+    @AppStorage("transportationScore") var transportationScore: Double = 0.0
+    @AppStorage("foodScore") var foodScore: Double = 0.0
+    @AppStorage("housingScore") var housingScore: Double = 0.0
+    @AppStorage("energyScore") var energyScore: Double = 0.0
+    @AppStorage("lifestyleScore") var lifestyleScore: Double = 0.0
+    @AppStorage("waterScore") var waterScore: Double = 0.0
 
     private let pages = [
         Page(number: 1, question: "How often do you use a car for transportation?", answers: [
@@ -89,77 +132,79 @@ struct CarouselView: View {
             ("Occasionally", 50.0),
             ("Regularly", 150.0),
             ("Daily", 300.0)
-        ]),
+        ], category: .transportation),
         
         Page(number: 2, question: "What type of diet do you follow?", answers: [
             ("Vegan", 10.0),
             ("Vegetarian", 30.0),
             ("Omnivore, but limited meat", 80.0),
             ("High meat consumption", 200.0)
-        ]),
+        ], category: .food),
         
         Page(number: 3, question: "How do you typically heat your home?", answers: [
             ("Renewable energy (solar, geothermal)", 10.0),
             ("Electricity", 50.0),
             ("Natural gas", 150.0),
             ("Coal or oil", 300.0)
-        ]),
+        ], category: .housing),
         
         Page(number: 4, question: "How often do you fly per year?", answers: [
             ("Never", 0.0),
             ("1-2 short flights", 42.0),
             ("3-5 medium-haul flights", 125.0),
             ("More than 5 long-haul flights", 417.0)
-        ]),
+        ], category: .transportation),
         
         Page(number: 5, question: "What type of home do you live in?", answers: [
             ("Small apartment (<50m²)", 8.3),
             ("Medium apartment or house (50-150m²)", 41.7),
             ("Large house (>150m²)", 83.3),
             ("Luxury home with high energy use", 166.7)
-        ]),
+        ], category: .housing),
         
         Page(number: 6, question: "How much electricity do you consume monthly?", answers: [
             ("Less than 100 kWh", 50.0),
             ("100-300 kWh", 150.0),
             ("300-600 kWh", 300.0),
             ("More than 600 kWh", 600.0)
-        ]),
+        ], category: .energy),
         
         Page(number: 7, question: "How do you dispose of waste?", answers: [
             ("I recycle and compost everything possible", 10.0),
             ("I recycle most items, but not all", 50.0),
             ("I throw away most of my waste without recycling", 150.0),
             ("I generate a lot of waste and do not recycle", 300.0)
-        ]),
+        ], category: .lifestyle),
         
         Page(number: 8, question: "How often do you buy new clothing or electronics?", answers: [
             ("Rarely, only when necessary", 4.2),
             ("Occasionally, a few items per year", 12.5),
             ("Frequently, new items every few months", 41.7),
             ("Regularly, I follow fashion trends and upgrade often", 83.3)
-        ]),
+        ], category: .lifestyle),
         
         Page(number: 9, question: "What type of energy sources power your home?", answers: [
             ("100% renewable", 0.0),
             ("Mostly renewable with some fossil fuels", 16.7),
             ("Mixed fossil fuels and renewables", 41.7),
             ("Mostly or entirely fossil fuels", 83.3)
-        ]),
+        ], category: .energy),
         
         Page(number: 10, question: "How much water do you use daily?", answers: [
             ("Very little (short showers, minimal waste)", 6.7),
             ("Moderate usage", 20.0),
             ("High usage (bath daily, excessive water use)", 50.0),
             ("Excessive usage (pool, lawn irrigation, long showers)", 100.0)
-        ])
+        ], category: .water)
     ]
 
-    
     @State private var currentIndex: Int = 0
     @State private var selectedAnswers: [Int: String] = [:]
     @State private var progressPercentage: Double = 0.0
     @State private var score = 0.0
+    
+    // Add category scores for tracking during questionnaire
+    @State private var categoryScores: [QuestionCategory: Double] = [:]
     
     var body: some View {
         ZStack {
@@ -171,7 +216,6 @@ struct CarouselView: View {
                     .frame(width: 100, height: 100)
                     .padding(.top, 60)
           
-                
                 Spacer()
                 
                 ZStack {
@@ -187,11 +231,24 @@ struct CarouselView: View {
                                     // Find the corresponding score from the tuple
                                     if let selectedValue = pages[index].answers.first(where: { $0.0 == answer })?.1 {
                                         score += selectedValue
+                                        
+                                        // Update category score
+                                        let category = page.category
+                                        categoryScores[category] = (categoryScores[category] ?? 0.0) + selectedValue
                                     }
                                     
                                     if progressPercentage == 1.0 {
                                         isAnswered = true
                                         carbonFootprintScore = score
+                                        
+                                        // Save category scores to AppStorage
+                                        transportationScore = categoryScores[.transportation] ?? 0.0
+                                        foodScore = categoryScores[.food] ?? 0.0
+                                        housingScore = categoryScores[.housing] ?? 0.0
+                                        energyScore = categoryScores[.energy] ?? 0.0
+                                        lifestyleScore = categoryScores[.lifestyle] ?? 0.0
+                                        waterScore = categoryScores[.water] ?? 0.0
+                                        
                                         print("Final Carbon Footprint Score: \(carbonFootprintScore) kg CO₂/month")
                                     }
                                 }
@@ -204,7 +261,6 @@ struct CarouselView: View {
                                     }
                                 }
                             }
-
                         )
                     }
                 }
@@ -229,7 +285,7 @@ struct CarouselEffect: ViewModifier {
                 perspective: 0.5
             )
             .offset(x: CGFloat(index - currentIndex) * 300 + translation)
-            .opacity(index == currentIndex ? 1 : 0.5)
+            .opacity(index == currentIndex ? 1 : 0.3) // Ridotta l'opacità da 0.5 a 0.3
             .scaleEffect(index == currentIndex ? 1 : 0.8)
             .zIndex(index == currentIndex ? 1 : 0)
             .animation(.spring(response: 0.5, dampingFraction: 0.8), value: currentIndex)

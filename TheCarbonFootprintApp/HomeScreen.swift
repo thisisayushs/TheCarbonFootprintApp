@@ -112,7 +112,7 @@ struct HomeScreen: View {
                     VStack(spacing: 20) {
 
                         VStack {
-                            Text("You are wasting")
+                            Text("Your carbon footprint is")
                                 .foregroundStyle(.white)
                                 .bold()
                                 .font(.system(size: 20, design: .rounded))
@@ -231,13 +231,13 @@ struct HomeScreen: View {
 }
 
 struct ShareSheet: UIViewControllerRepresentable {
-    var activityItems: [Any]
+    var activityItems: [Any]
 
-    func makeUIViewController(context: Context) -> UIActivityViewController {
-        UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-    }
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+    }
 
-    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
 

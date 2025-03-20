@@ -17,34 +17,29 @@ struct ProfileView: View {
         NavigationStack {
             ZStack {
                 BackroundView(opacity: 0.5)
-                    
                 
                 VStack(spacing: 30) {
-            
-                    
-                    
                     VStack(spacing: 15) {
                         Button {
                             showingAlert = true
                         } label: {
-                            ProfileListItem(icon: "chart.dots.scatter", text: "Retake questionnaire")
+                            ProfileListItem(icon: "chart.dots.scatter", text: String(localized: "reset_questionnaire"))
                         }
-                        .alert("Reset Questionnaire", isPresented: $showingAlert) {
-                            Button("Cancel", role: .cancel) { }
-                            Button("Retake", role: .destructive) {
+                        .alert(String(localized: "reset_questionnaire"), isPresented: $showingAlert) {
+                            Button(String(localized: "cancel"), role: .cancel) { }
+                            Button(String(localized: "retake"), role: .destructive) {
                                 carbonFootprintScore = 0.0
                                 isAnswered = false
                                 dismiss()
                             }
                         } message: {
-                            Text("This will clear your previous answers and carbon footprint score. Do you want to continue?")
+                            Text(LocalizedStringKey("reset_confirmation"))
                         }
 
-                        ProfileListItem(icon: "person", text: "Account Settings")
-                        ProfileListItem(icon: "leaf", text: "My Impact Goals")
-                        
-                        ProfileListItem(icon: "bell", text: "Notifications")
-                        ProfileListItem(icon: "gear", text: "Settings")
+                        ProfileListItem(icon: "person", text: String(localized: "account_settings"))
+                        ProfileListItem(icon: "leaf", text: String(localized: "impact_goals"))
+                        ProfileListItem(icon: "bell", text: String(localized: "notifications"))
+                        ProfileListItem(icon: "gear", text: String(localized: "settings"))
                     }
                     .foregroundStyle(.white)
                     .padding()
@@ -53,7 +48,7 @@ struct ProfileView: View {
             
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Close") {
+                    Button(String(localized: "close")) {
                         dismiss()
                     }
                     .foregroundStyle(.white)

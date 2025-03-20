@@ -1,0 +1,100 @@
+/* 
+  Localizable.strings
+  TheCarbonFootprintApp
+
+  Created by Ayush Singh on 3/19/25.
+  
+*/
+
+"share_world" = "Share your world";
+"category_breakdown" = "Category Breakdown";
+"improvement_tips" = "Improvement Tips";
+"your_carbon_footprint" = "Your carbon footprint is";
+"co2_per_month" = "kg CO₂/month";
+
+"transportation" = "Transportation";
+"food" = "Food";
+"housing" = "Housing";
+"energy" = "Energy";
+"lifestyle" = "Lifestyle";
+"water" = "Water";
+
+"tip_carpooling" = "Consider carpooling or using public transportation to reduce your transportation emissions.";
+"tip_plant_based" = "Try incorporating more plant-based meals into your diet to reduce your food carbon footprint.";
+"tip_energy_efficient" = "Switch to energy-efficient appliances and consider renewable energy sources for your home.";
+"tip_water_saving" = "Install water-saving fixtures and take shorter showers to reduce water consumption.";
+"tip_mindful_consumption" = "Practice mindful consumption by buying fewer new items and repairing what you already own.";
+"tip_unplug" = "Unplug electronics when not in use to reduce phantom energy consumption.";
+"tip_reusable" = "Use reusable bags, bottles, and containers to reduce single-use plastic waste.";
+
+"reset_confirmation" = "This will clear your previous answers and carbon footprint score. Do you want to continue?";
+
+"q1_transport" = "How often do you use a car for transportation?";
+"q2_diet" = "What type of diet do you follow?";
+"q3_heating" = "How do you typically heat your home?";
+"q4_flying" = "How often do you fly per year?";
+"q5_home" = "What type of home do you live in?";
+"q6_electricity" = "How much electricity do you consume monthly?";
+"q7_waste" = "How do you dispose of waste?";
+"q8_shopping" = "How often do you buy new clothing or electronics?";
+"q9_energy" = "What type of energy sources power your home?";
+"q10_water" = "How much water do you use daily?";
+
+"a1_never" = "Never";
+"a1_occasionally" = "Occasionally";
+"a1_regularly" = "Regularly";
+"a1_daily" = "Daily";
+
+"a2_vegan" = "Vegan";
+"a2_vegetarian" = "Vegetarian";
+"a2_limited_meat" = "Omnivore, but limited meat";
+"a2_high_meat" = "High meat consumption";
+
+"a3_renewable" = "Renewable energy (solar, geothermal)";
+"a3_electricity" = "Electricity";
+"a3_natural_gas" = "Natural gas";
+"a3_coal" = "Coal or oil";
+
+"a4_never" = "Never";
+"a4_1_2_flights" = "1-2 short flights";
+"a4_3_5_flights" = "3-5 medium-haul flights";
+"a4_more_5_flights" = "More than 5 long-haul flights";
+
+"a5_small" = "Small apartment (<50m²)";
+"a5_medium" = "Medium apartment or house (50-150m²)";
+"a5_large" = "Large house (>150m²)";
+"a5_luxury" = "Luxury home with high energy use";
+
+"a6_less_100" = "Less than 100 kWh";
+"a6_100_300" = "100-300 kWh";
+"a6_300_600" = "300-600 kWh";
+"a6_more_600" = "More than 600 kWh";
+
+"a7_recycle_all" = "I recycle and compost everything possible";
+"a7_recycle_most" = "I recycle most items, but not all";
+"a7_no_recycle" = "I throw away most of my waste without recycling";
+"a7_waste_lot" = "I generate a lot of waste and do not recycle";
+
+"a8_rarely" = "Rarely, only when necessary";
+"a8_occasionally" = "Occasionally, a few items per year";
+"a8_frequently" = "Frequently, new items every few months";
+"a8_regularly" = "Regularly, I follow fashion trends and upgrade often";
+
+"a9_renewable" = "100% renewable";
+"a9_mostly_renewable" = "Mostly renewable with some fossil fuels";
+"a9_mixed" = "Mixed fossil fuels and renewables";
+"a9_fossil" = "Mostly or entirely fossil fuels";
+
+"a10_very_little" = "Very little (short showers, minimal waste)";
+"a10_moderate" = "Moderate usage";
+"a10_high" = "High usage (bath daily, excessive water use)";
+"a10_excessive" = "Excessive usage (pool, lawn irrigation, long showers)";
+
+"close" = "Close";
+"reset_questionnaire" = "Reset Questionnaire";
+"cancel" = "Cancel";
+"retake" = "Retake";
+"account_settings" = "Account Settings";
+"impact_goals" = "My Impact Goals";
+"notifications" = "Notifications";
+"settings" = "Settings";

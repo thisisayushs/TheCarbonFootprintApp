@@ -11,12 +11,12 @@ struct Page: Identifiable {
 
 // Define question categories
 enum QuestionCategory: String, CaseIterable {
-    case transportation = "Transportation"
-    case food = "Food"
-    case housing = "Housing"
-    case energy = "Energy"
-    case lifestyle = "Lifestyle"
-    case water = "Water"
+    case transportation = "transportation"
+    case food = "food"
+    case housing = "housing"
+    case energy = "energy"
+    case lifestyle = "lifestyle"
+    case water = "water"
     
     var icon: String {
         switch self {
@@ -127,74 +127,74 @@ struct CarouselView: View {
     @AppStorage("waterScore") var waterScore: Double = 0.0
 
     private let pages = [
-        Page(number: 1, question: "How often do you use a car for transportation?", answers: [
-            ("Never", 0.0),
-            ("Occasionally", 50.0),
-            ("Regularly", 150.0),
-            ("Daily", 300.0)
+        Page(number: 1, question: String(localized: "q1_transport"), answers: [
+            (String(localized: "a1_never"), 0.0),
+            (String(localized: "a1_occasionally"), 50.0),
+            (String(localized: "a1_regularly"), 150.0),
+            (String(localized: "a1_daily"), 300.0)
         ], category: .transportation),
         
-        Page(number: 2, question: "What type of diet do you follow?", answers: [
-            ("Vegan", 10.0),
-            ("Vegetarian", 30.0),
-            ("Omnivore, but limited meat", 80.0),
-            ("High meat consumption", 200.0)
+        Page(number: 2, question: String(localized: "q2_diet"), answers: [
+            (String(localized: "a2_vegan"), 10.0),
+            (String(localized: "a2_vegetarian"), 30.0),
+            (String(localized: "a2_limited_meat"), 80.0),
+            (String(localized: "a2_high_meat"), 200.0)
         ], category: .food),
         
-        Page(number: 3, question: "How do you typically heat your home?", answers: [
-            ("Renewable energy (solar, geothermal)", 10.0),
-            ("Electricity", 50.0),
-            ("Natural gas", 150.0),
-            ("Coal or oil", 300.0)
+        Page(number: 3, question: String(localized: "q3_heating"), answers: [
+            (String(localized: "a3_renewable"), 10.0),
+            (String(localized: "a3_electricity"), 50.0),
+            (String(localized: "a3_natural_gas"), 150.0),
+            (String(localized: "a3_coal"), 300.0)
         ], category: .housing),
         
-        Page(number: 4, question: "How often do you fly per year?", answers: [
-            ("Never", 0.0),
-            ("1-2 short flights", 42.0),
-            ("3-5 medium-haul flights", 125.0),
-            ("More than 5 long-haul flights", 417.0)
+        Page(number: 4, question: String(localized: "q4_flying"), answers: [
+            (String(localized: "a4_never"), 0.0),
+            (String(localized: "a4_1_2_flights"), 42.0),
+            (String(localized: "a4_3_5_flights"), 125.0),
+            (String(localized: "a4_more_5_flights"), 417.0)
         ], category: .transportation),
         
-        Page(number: 5, question: "What type of home do you live in?", answers: [
-            ("Small apartment (<50m²)", 8.3),
-            ("Medium apartment or house (50-150m²)", 41.7),
-            ("Large house (>150m²)", 83.3),
-            ("Luxury home with high energy use", 166.7)
+        Page(number: 5, question: String(localized: "q5_home"), answers: [
+            (String(localized: "a5_small"), 8.3),
+            (String(localized: "a5_medium"), 41.7),
+            (String(localized: "a5_large"), 83.3),
+            (String(localized: "a5_luxury"), 166.7)
         ], category: .housing),
         
-        Page(number: 6, question: "How much electricity do you consume monthly?", answers: [
-            ("Less than 100 kWh", 50.0),
-            ("100-300 kWh", 150.0),
-            ("300-600 kWh", 300.0),
-            ("More than 600 kWh", 600.0)
+        Page(number: 6, question: String(localized: "q6_electricity"), answers: [
+            (String(localized: "a6_less_100"), 50.0),
+            (String(localized: "a6_100_300"), 150.0),
+            (String(localized: "a6_300_600"), 300.0),
+            (String(localized: "a6_more_600"), 600.0)
         ], category: .energy),
         
-        Page(number: 7, question: "How do you dispose of waste?", answers: [
-            ("I recycle and compost everything possible", 10.0),
-            ("I recycle most items, but not all", 50.0),
-            ("I throw away most of my waste without recycling", 150.0),
-            ("I generate a lot of waste and do not recycle", 300.0)
+        Page(number: 7, question: String(localized: "q7_waste"), answers: [
+            (String(localized: "a7_recycle_all"), 10.0),
+            (String(localized: "a7_recycle_most"), 50.0),
+            (String(localized: "a7_no_recycle"), 150.0),
+            (String(localized: "a7_waste_lot"), 300.0)
         ], category: .lifestyle),
         
-        Page(number: 8, question: "How often do you buy new clothing or electronics?", answers: [
-            ("Rarely, only when necessary", 4.2),
-            ("Occasionally, a few items per year", 12.5),
-            ("Frequently, new items every few months", 41.7),
-            ("Regularly, I follow fashion trends and upgrade often", 83.3)
+        Page(number: 8, question: String(localized: "q8_shopping"), answers: [
+            (String(localized: "a8_rarely"), 4.2),
+            (String(localized: "a8_occasionally"), 12.5),
+            (String(localized: "a8_frequently"), 41.7),
+            (String(localized: "a8_regularly"), 83.3)
         ], category: .lifestyle),
         
-        Page(number: 9, question: "What type of energy sources power your home?", answers: [
-            ("100% renewable", 0.0),
-            ("Mostly renewable with some fossil fuels", 16.7),
-            ("Mixed fossil fuels and renewables", 41.7),
-            ("Mostly or entirely fossil fuels", 83.3)
+        Page(number: 9, question: String(localized: "q9_energy"), answers: [
+            (String(localized: "a9_renewable"), 0.0),
+            (String(localized: "a9_mostly_renewable"), 16.7),
+            (String(localized: "a9_mixed"), 41.7),
+            (String(localized: "a9_fossil"), 83.3)
         ], category: .energy),
         
-        Page(number: 10, question: "How much water do you use daily?", answers: [
-            ("Very little (short showers, minimal waste)", 6.7),
-            ("Moderate usage", 20.0),
-            ("High usage (bath daily, excessive water use)", 50.0),
-            ("Excessive usage (pool, lawn irrigation, long showers)", 100.0)
+        Page(number: 10, question: String(localized: "q10_water"), answers: [
+            (String(localized: "a10_very_little"), 6.7),
+            (String(localized: "a10_moderate"), 20.0),
+            (String(localized: "a10_high"), 50.0),
+            (String(localized: "a10_excessive"), 100.0)
         ], category: .water)
     ]
 
@@ -406,8 +406,7 @@ class MotionManager1: ObservableObject {
     }
 }
 
-
-
 #Preview {
     CarouselView()
+       
 }

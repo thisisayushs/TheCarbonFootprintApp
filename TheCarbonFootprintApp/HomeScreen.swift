@@ -112,7 +112,7 @@ struct HomeScreen: View {
                     VStack(spacing: 20) {
 
                         VStack {
-                            Text("Your carbon footprint is")
+                            Text(LocalizedStringKey("your_carbon_footprint"))
                                 .foregroundStyle(.white)
                                 .bold()
                                 .font(.system(size: 20, design: .rounded))
@@ -126,7 +126,7 @@ struct HomeScreen: View {
                                 .fontDesign(.rounded)
                                 
                             
-                            Text("kg CO₂/month")
+                            Text(LocalizedStringKey("co2_per_month"))
                                 .foregroundStyle(.white)
                                 .bold()
                                 .font(.system(size: 14, design: .rounded))
@@ -143,7 +143,7 @@ struct HomeScreen: View {
                             Button(action: {
                                 captureAndShare()
                             }) {
-                                OptionView(content: "Share your world", icon: "square.and.arrow.up")
+                                OptionView(content: LocalizedStringKey("share_world"), icon: "square.and.arrow.up")
                                     .foregroundStyle(.white)
                             }
                             .foregroundStyle(.white)
@@ -240,10 +240,12 @@ struct ShareSheet: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
-
-
+#Preview {
+    HomeScreen()
+        .environment(\.locale, .init(identifier: "it"))
+}
 
 #Preview {
     HomeScreen()
+        .environment(\.locale, .init(identifier: "ko"))
 }
-

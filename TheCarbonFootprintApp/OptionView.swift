@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OptionView: View {
-    var content: String = "Option"
+    var content: LocalizedStringKey = "Option"
     var icon: String = ""
     var body: some View {
         ZStack {

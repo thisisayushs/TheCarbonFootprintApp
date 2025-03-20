@@ -1,0 +1,101 @@
+/* 
+  Localizable.strings
+  TheCarbonFootprintApp
+
+  Created by Ayush Singh on 3/19/25.
+  
+*/
+
+"share_world" = "당신의 세상을 공유하세요";
+"category_breakdown" = "카테고리 분석";
+"improvement_tips" = "개선 팁";
+"your_carbon_footprint" = "당신의 탄소 발자국은";
+"co2_per_month" = "kg CO₂/월";
+
+"transportation" = "교통";
+"food" = "식품";
+"housing" = "주거";
+"energy" = "에너지";
+"lifestyle" = "생활방식";
+"water" = "물";
+
+"tip_carpooling" = "교통 배출을 줄이기 위해 카풀이나 대중교통 이용을 고려해보세요.";
+"tip_plant_based" = "식품 탄소 발자국을 줄이기 위해 식물성 식단을 더 많이 포함해보세요.";
+"tip_energy_efficient" = "에너지 효율이 높은 가전제품으로 교체하고 가정용 재생 에너지원을 고려해보세요.";
+"tip_water_saving" = "절수 설비를 설치하고 샤워 시간을 줄여 물 소비를 줄이세요.";
+"tip_mindful_consumption" = "새로운 물건 구매를 줄이고 기존 물건을 수리하여 사용하는 현명한 소비를 실천하세요.";
+"tip_unplug" = "대기전력 소비를 줄이기 위해 사용하지 않는 전자기기의 플러그를 뽑으세요.";
+"tip_reusable" = "일회용 플라스틱 쓰레기를 줄이기 위해 재사용 가능한 가방, 물병, 용기를 사용하세요.";
+
+"reset_confirmation" = "이전 답변과 탄소 발자국 점수가 모두 삭제됩니다. 계속하시겠습니까?";
+
+"q1_transport" = "자동차를 얼마나 자주 이용하시나요?";
+"q2_diet" = "어떤 식단을 따르시나요?";
+"q3_heating" = "일반적으로 집을 어떻게 난방하시나요?";
+"q4_flying" = "연간 비행기를 얼마나 자주 이용하시나요?";
+"q5_home" = "어떤 유형의 집에서 사시나요?";
+"q6_electricity" = "월간 전기 사용량이 얼마나 되나요?";
+"q7_waste" = "쓰레기를 어떻게 처리하시나요?";
+"q8_shopping" = "새 옷이나 전자제품을 얼마나 자주 구매하시나요?";
+"q9_energy" = "집에서 어떤 에너지원을 사용하시나요?";
+"q10_water" = "하루 물 사용량이 얼마나 되나요?";
+
+"a1_never" = "전혀 안 함";
+"a1_occasionally" = "가끔";
+"a1_regularly" = "정기적으로";
+"a1_daily" = "매일";
+
+"a2_vegan" = "비건";
+"a2_vegetarian" = "채식주의";
+"a2_limited_meat" = "잡식, 하지만 고기는 제한적으로";
+"a2_high_meat" = "고기 섭취가 많음";
+
+"a3_renewable" = "재생 에너지 (태양열, 지열)";
+"a3_electricity" = "전기";
+"a3_natural_gas" = "천연가스";
+"a3_coal" = "석탄 또는 석유";
+
+"a4_never" = "전혀 안 함";
+"a4_1_2_flights" = "1-2회 단거리 비행";
+"a4_3_5_flights" = "3-5회 중거리 비행";
+"a4_more_5_flights" = "5회 이상 장거리 비행";
+
+"a5_small" = "소형 아파트 (<50m²)";
+"a5_medium" = "중형 아파트 또는 주택 (50-150m²)";
+"a5_large" = "대형 주택 (>150m²)";
+"a5_luxury" = "에너지 사용량이 많은 고급 주택";
+
+"a6_less_100" = "100 kWh 미만";
+"a6_100_300" = "100-300 kWh";
+"a6_300_600" = "300-600 kWh";
+"a6_more_600" = "600 kWh 초과";
+
+
+"a7_recycle_all" = "모든 가능한 것을 재활용하고 퇴비화";
+"a7_recycle_most" = "대부분 재활용하지만 전부는 아님";
+"a7_no_recycle" = "대부분의 쓰레기를 재활용 없이 버림";
+"a7_waste_lot" = "많은 쓰레기를 배출하고 재활용하지 않음";
+
+"a8_rarely" = "필요할 때만 드물게";
+"a8_occasionally" = "가끔, 연간 몇 개 정도";
+"a8_frequently" = "자주, 몇 달마다 새로운 물건";
+"a8_regularly" = "정기적으로, 유행을 따르고 자주 업그레이드";
+
+"a9_renewable" = "100% 재생 에너지";
+"a9_mostly_renewable" = "대부분 재생 에너지와 일부 화석 연료";
+"a9_mixed" = "화석 연료와 재생 에너지 혼합";
+"a9_fossil" = "대부분 또는 전적으로 화석 연료";
+
+"a10_very_little" = "매우 적음 (짧은 샤워, 최소한의 낭비)";
+"a10_moderate" = "보통 사용량";
+"a10_high" = "많은 사용량 (매일 목욕, 과도한 물 사용)";
+"a10_excessive" = "과도한 사용 (수영장, 잔디 관개, 긴 샤워)";
+
+"close" = "닫기";
+"reset_questionnaire" = "설문 초기화";
+"cancel" = "취소";
+"retake" = "다시하기";
+"account_settings" = "계정 설정";
+"impact_goals" = "나의 환경 영향 목표";
+"notifications" = "알림";
+"settings" = "설정";

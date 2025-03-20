@@ -1,0 +1,101 @@
+/* 
+  Localizable.strings
+  TheCarbonFootprintApp
+
+  Created by Ayush Singh on 3/19/25.
+  
+*/
+
+"share_world" = "Condividi il tuo mondo";
+"category_breakdown" = "Suddivisione per Categoria";
+"improvement_tips" = "Suggerimenti per Migliorare";
+"your_carbon_footprint" = "La tua impronta di carbonio è";
+"co2_per_month" = "kg CO₂/mese";
+
+"transportation" = "Trasporti";
+"food" = "Alimentazione";
+"housing" = "Abitazione";
+"energy" = "Energia";
+"lifestyle" = "Stile di Vita";
+"water" = "Acqua";
+
+"tip_carpooling" = "Considera il car sharing o l'uso dei trasporti pubblici per ridurre le emissioni dei trasporti.";
+"tip_plant_based" = "Prova a incorporare più pasti a base vegetale nella tua dieta per ridurre l'impronta di carbonio del cibo.";
+"tip_energy_efficient" = "Passa a elettrodomestici a basso consumo energetico e considera fonti di energia rinnovabile per la tua casa.";
+"tip_water_saving" = "Installa dispositivi per il risparmio idrico e fai docce più brevi per ridurre il consumo di acqua.";
+"tip_mindful_consumption" = "Pratica un consumo consapevole acquistando meno oggetti nuovi e riparando quelli che già possiedi.";
+"tip_unplug" = "Scollega i dispositivi elettronici quando non li usi per ridurre il consumo fantasma di energia.";
+"tip_reusable" = "Usa borse, bottiglie e contenitori riutilizzabili per ridurre i rifiuti di plastica monouso.";
+
+"reset_confirmation" = "Questo cancellerà le tue risposte precedenti e il punteggio dell'impronta di carbonio. Vuoi continuare?";
+
+"q1_transport" = "Quanto spesso usi l'auto per il trasporto?";
+"q2_diet" = "Che tipo di dieta segui?";
+"q3_heating" = "Come riscaldi solitamente la tua casa?";
+"q4_flying" = "Quante volte voli all'anno?";
+"q5_home" = "In che tipo di casa vivi?";
+"q6_electricity" = "Quanto elettricità consumi mensilmente?";
+"q7_waste" = "Come smaltisci i rifiuti?";
+"q8_shopping" = "Quanto spesso acquisti nuovi vestiti o elettronica?";
+"q9_energy" = "Quali fonti di energia alimentano la tua casa?";
+"q10_water" = "Quanta acqua usi quotidianamente?";
+
+"a1_never" = "Mai";
+"a1_occasionally" = "Occasionalmente";
+"a1_regularly" = "Regolarmente";
+"a1_daily" = "Quotidianamente";
+
+"a2_vegan" = "Vegana";
+"a2_vegetarian" = "Vegetariana";
+"a2_limited_meat" = "Onnivora, ma con carne limitata";
+"a2_high_meat" = "Alto consumo di carne";
+
+"a3_renewable" = "Energia rinnovabile (solare, geotermica)";
+"a3_electricity" = "Elettricità";
+"a3_natural_gas" = "Gas naturale";
+"a3_coal" = "Carbone o petrolio";
+
+"a4_never" = "Mai";
+"a4_1_2_flights" = "1-2 voli brevi";
+"a4_3_5_flights" = "3-5 voli a media distanza";
+"a4_more_5_flights" = "Più di 5 voli a lunga distanza";
+
+"a5_small" = "Piccolo appartamento (<50m²)";
+"a5_medium" = "Appartamento o casa media (50-150m²)";
+"a5_large" = "Casa grande (>150m²)";
+"a5_luxury" = "Casa di lusso con alto consumo energetico";
+
+"a6_less_100" = "Meno di 100 kWh";
+"a6_100_300" = "100-300 kWh";
+"a6_300_600" = "300-600 kWh";
+"a6_more_600" = "Più di 600 kWh";
+
+"a7_recycle_all" = "Riciclo e composto tutto il possibile";
+"a7_recycle_most" = "Riciclo la maggior parte degli oggetti, ma non tutti";
+"a7_no_recycle" = "Butto via la maggior parte dei rifiuti senza riciclare";
+"a7_waste_lot" = "Genero molti rifiuti e non riciclo";
+
+"a8_rarely" = "Raramente, solo quando necessario";
+"a8_occasionally" = "Occasionalmente, alcuni articoli all'anno";
+"a8_frequently" = "Frequentemente, nuovi articoli ogni pochi mesi";
+"a8_regularly" = "Regolarmente, seguo le tendenze della moda e aggiorno spesso";
+
+"a9_renewable" = "100% rinnovabile";
+"a9_mostly_renewable" = "Principalmente rinnovabile con alcuni combustibili fossili";
+"a9_mixed" = "Mix di combustibili fossili e rinnovabili";
+"a9_fossil" = "Principalmente o interamente combustibili fossili";
+
+
+"a10_very_little" = "Molto poco (docce brevi, spreco minimo)";
+"a10_moderate" = "Uso moderato";
+"a10_high" = "Uso elevato (bagno quotidiano, uso eccessivo di acqua)";
+"a10_excessive" = "Uso eccessivo (piscina, irrigazione prato, docce lunghe)";
+
+"close" = "Chiudi";
+"reset_questionnaire" = "Reimposta Questionario";
+"cancel" = "Annulla";
+"retake" = "Ricomincia";
+"account_settings" = "Impostazioni Account";
+"impact_goals" = "I Miei Obiettivi di Impatto";
+"notifications" = "Notifiche";
+"settings" = "Impostazioni";

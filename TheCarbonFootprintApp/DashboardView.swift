@@ -5,7 +5,6 @@
 //  Created by Francesco Paciello on 13/03/25.
 //
 
-
 //
 //  DashboardView.swift
 //  TheCarbonFootprintApp
@@ -28,7 +27,7 @@ struct DashboardView: View {
         ScrollView {
             VStack(spacing: 20) {
                 // Header
-                Text("Category Breakdown")
+                Text(LocalizedStringKey("category_breakdown"))
                     .font(.system(size: 24, weight: .bold, design: .rounded))
                     .foregroundStyle(.white)
                     .padding(.top, 20)
@@ -47,11 +46,11 @@ struct DashboardView: View {
                 
                 // Tips section
                 VStack(alignment: .leading, spacing: 15) {
-                    Text("Improvement Tips")
+                    Text(LocalizedStringKey("improvement_tips"))
                         .font(.headline)
                         .foregroundStyle(.white)
                     
-                    ForEach(improvementTips(), id: \.self) { tip in
+                    ForEach(Array(improvementTips().enumerated()), id: \.offset) { _, tip in
                         HStack(alignment: .top) {
                             Image(systemName: "leaf.fill")
                                 .foregroundStyle(.green)
@@ -96,33 +95,33 @@ struct DashboardView: View {
         return (scoreForCategory(category) / carbonFootprintScore) * 100
     }
     
-    private func improvementTips() -> [String] {
-        var tips: [String] = []
+    private func improvementTips() -> [LocalizedStringKey] {
+        var tips: [LocalizedStringKey] = []
         
         if transportationScore > 100 {
-            tips.append("Consider carpooling or using public transportation to reduce your transportation emissions.")
+            tips.append(LocalizedStringKey("tip_carpooling"))
         }
         
         if foodScore > 50 {
-            tips.append("Try incorporating more plant-based meals into your diet to reduce your food carbon footprint.")
+            tips.append(LocalizedStringKey("tip_plant_based"))
         }
         
         if energyScore > 100 {
-            tips.append("Switch to energy-efficient appliances and consider renewable energy sources for your home.")
+            tips.append(LocalizedStringKey("tip_energy_efficient"))
         }
         
         if waterScore > 30 {
-            tips.append("Install water-saving fixtures and take shorter showers to reduce water consumption.")
+            tips.append(LocalizedStringKey("tip_water_saving"))
         }
         
         if lifestyleScore > 50 {
-            tips.append("Practice mindful consumption by buying fewer new items and repairing what you already own.")
+            tips.append(LocalizedStringKey("tip_mindful_consumption"))
         }
         
         // Add general tips if we don't have enough specific ones
         if tips.count < 3 {
-            tips.append("Unplug electronics when not in use to reduce phantom energy consumption.")
-            tips.append("Use reusable bags, bottles, and containers to reduce single-use plastic waste.")
+            tips.append(LocalizedStringKey("tip_unplug"))
+            tips.append(LocalizedStringKey("tip_reusable"))
         }
         
         return Array(tips.prefix(4)) // Return at most 4 tips
@@ -141,7 +140,7 @@ struct CategoryScoreCard: View {
                     .font(.title2)
                     .foregroundStyle(category.color)
                 
-                Text(category.rawValue)
+                Text(LocalizedStringKey(category.rawValue))
                     .font(.headline)
                     .foregroundStyle(.white)
                 

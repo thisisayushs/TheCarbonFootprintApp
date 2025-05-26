@@ -2,6 +2,12 @@
 
 Measure your impact, then watch the planet respond.
 
+![Ecosphere Poster](Screenshots/EcospherePoster.png)
+
+## Available on TestFight
+
+TestFlight Link - https://testflight.apple.com/join/NC2MG1Ub
+
 ## Features
 
 - **Lifestyle Questionnaire** - Answer bite‑size questions on transport, diet, energy use and shopping habits
@@ -21,6 +27,16 @@ Measure your impact, then watch the planet respond.
 ## Built Together 🤝
 
 Crafted by a team of six hailing from China, India, Iran, Italy, and Mexico, and fully localized in English (United States), Italian, and Korean for a truly global reach.
+
+## Installation
+
+1. Clone this repository: `git clone https://github.com/thisisayushs/Ecosphere.git)`
+2. Open the project in Xcode.
+3. Run the app on a simulator or connected device.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 
 
